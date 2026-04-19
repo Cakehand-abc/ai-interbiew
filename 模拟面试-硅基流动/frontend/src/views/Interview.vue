@@ -44,7 +44,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { marked } from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
-import { postChatMessage } from '../api';
+import { postChatMessage, postChatMessageStream } from '../api';
 
 marked.setOptions({
   breaks: true, // 保留换行符
@@ -115,23 +115,25 @@ const startInterview = async (jobName: string) => {
   isLoading.value = true;
   messages.value.push({ sender: 'system', text: `正在为您准备 **${jobName}** 面试...` });
 
-  const totalQuestions = route.query.total_questions ? parseInt(route.query.total_questions as string) : 5;
-  const passingThreshold = route.query.passing_threshold ? parseInt(route.query.passing_threshold as string) : 3;
+  const totalQs = route.query.total_questions ? parseInt(route.query.total_questions as string) : 5;
+  const passThresh = route.query.passing_threshold ? parseInt(route.query.passing_threshold as string) : 3;
+
+  // 提前放入一个空的 AI 消息框，准备接受打字流
+  messages.value.push({ sender: 'ai', text: '' });
+  const currentAiMessage = messages.value[messages.value.length - 1];
 
   try {
-    const data = await postChatMessage({ 
-      message: jobName,
-      total_questions: totalQuestions,
-      passing_threshold: passingThreshold
-    });
-    if (data.success) {
-      sessionId.value = data.session_id;
-      messages.value.push({ sender: 'ai', text: data.message });
-    } else {
-      messages.value.push({ sender: 'system', text: `面试初始化失败: ${data.error}` });
-    }
+    await postChatMessageStream(
+      { message: jobName, total_questions: totalQs, passing_threshold: passThresh },
+      (chunk) => {
+        currentAiMessage.text += chunk; // 核心：打字机效果拼接
+      },
+      (meta) => {
+        if (meta.session_id) sessionId.value = meta.session_id;
+      }
+    );
   } catch (error: any) {
-    messages.value.push({ sender: 'system', text: `服务连接失败: ${error.message}` });
+    currentAiMessage.text = `面试初始化失败: ${error.message}`;
   } finally {
     isLoading.value = false;
   }
@@ -155,27 +157,38 @@ const sendMessage = async () => {
   userInput.value = '';
   isLoading.value = true;
 
+  // 提前放入一个空的 AI 消息框
+  messages.value.push({ sender: 'ai', text: '' });
+  const currentAiMessage = messages.value[messages.value.length - 1];
+
   try {
-    const data = await postChatMessage({ message: userMessage, session_id: sessionId.value });
-    if (data.success) {
-      messages.value.push({ sender: 'ai', text: data.message });
-      // 更新进度条：使用后端返回的当前问题数
-      if (data.current_question_count !== undefined) {
-        currentQuestion.value = Math.min(data.current_question_count, totalQuestions.value);
+    await postChatMessageStream(
+      { message: userMessage, session_id: sessionId.value },
+      (chunk) => {
+        currentAiMessage.text += chunk; // 核心：打字机效果拼接
+      },
+      (meta) => {
+        // 更新当前问题进度
+        if (meta.current_question_count !== undefined) {
+          currentQuestion.value = Math.min(meta.current_question_count, totalQuestions.value);
+        }
+        // 如果后端传回面试结束标识，则跳转
+        if (meta.interview_ended) {
+          isFinished.value = true;
+          // 延迟 1.5 秒跳转，让用户看清楚最后一句告别语
+          setTimeout(() => {
+            router.push({ name: 'Result', query: { session_id: sessionId.value } });
+          }, 1500); 
+        }
       }
-      if (data.interview_ended) {
-        isFinished.value = true;
-        router.push({ name: 'Result', query: { session_id: sessionId.value } });
-      }
-    } else {
-      messages.value.push({ sender: 'system', text: `处理失败: ${data.error}` });
-    }
+    );
   } catch (error: any) {
-    messages.value.push({ sender: 'system', text: `通信失败: ${error.message}` });
+    currentAiMessage.text = `通信失败: ${error.message}`;
   } finally {
     isLoading.value = false;
   }
 };
+
 </script>
 
 <style lang="scss" scoped>

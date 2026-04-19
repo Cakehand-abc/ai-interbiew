@@ -79,3 +79,55 @@ export const changePassword = (payload: { old_password: string; new_password: st
     method: 'POST',
     body: JSON.stringify(payload),
   });
+
+// 新增：专门用于流式读取对话的请求方法 (适配打字机效果)
+export const postChatMessageStream = async (
+  payload: any,
+  onChunk: (text: string) => void,
+  onMeta: (meta: any) => void
+) => {
+  const response = await fetch(`${API_BASE_URL}/chat`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+    credentials: 'include', // 携带 Cookie 保持会话
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({ error: '请求失败' }));
+    throw new Error(errorData.error);
+  }
+
+  const reader = response.body?.getReader();
+  const decoder = new TextDecoder('utf-8');
+
+  if (!reader) throw new Error("无法读取数据流");
+
+  let done = false;
+  while (!done) {
+    const { value, done: readerDone } = await reader.read();
+    done = readerDone;
+    if (value) {
+      const chunkStr = decoder.decode(value, { stream: true });
+      const lines = chunkStr.split('\n');
+      for (const line of lines) {
+        if (line.startsWith('data: ')) {
+          const dataStr = line.replace('data: ', '').trim();
+          if (dataStr === '[DONE]') continue;
+          try {
+            const data = JSON.parse(dataStr);
+            if (data.is_meta) {
+              onMeta(data);   // 收到后端传来的结束标识、sessionId等
+            } else if (data.content) {
+              onChunk(data.content); // 收到源源不断的文字流，传给前端渲染
+            }
+          } catch (e) {
+            // 忽略偶尔被截断的JSON错误
+          }
+        }
+      }
+    }
+  }
+};
+
+  
