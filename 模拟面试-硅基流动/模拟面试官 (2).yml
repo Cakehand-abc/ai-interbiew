@@ -1,0 +1,4766 @@
+app:
+  description: 模拟面试官，适合给用户进行模拟面试，面试后进行评估是否通过面试
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 模拟面试官
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/siliconflow:0.0.32@137c05b006714e6885243576cdab3b01479cb320cd78d6282e7a777b013fbefe
+    version: null
+kind: app
+version: 0.4.0
+workflow:
+  conversation_variables:
+  - description: 通过的总数
+    id: 2e2878cc-3c1b-44bf-b04a-c5c24072c49b
+    name: pass_count_total
+    selector:
+    - conversation
+    - pass_count_total
+    value: 3
+    value_type: integer
+  - description: 问题总数
+    id: a2896600-c2e7-4c78-a556-88f7ea3efdaf
+    name: question_count_total
+    selector:
+    - conversation
+    - question_count_total
+    value: 5
+    value_type: integer
+  - description: 岗位描述
+    id: acc3e2f1-98c6-4557-9f49-efa837caae08
+    name: job_desc
+    selector:
+    - conversation
+    - job_desc
+    value: ''
+    value_type: string
+  - description: 岗位名称
+    id: fe15eb22-943c-4b2d-acf2-24c45336992b
+    name: job_name
+    selector:
+    - conversation
+    - job_name
+    value: ''
+    value_type: string
+  - description: 问题通过数
+    id: c3f7bea1-1749-4911-8fb2-d1e2ea95159a
+    name: pass_count
+    selector:
+    - conversation
+    - pass_count
+    value: 0
+    value_type: integer
+  - description: 当前问到第几个问题了
+    id: 4c4fafdc-61e9-47c9-a574-f117c9bf9ddd
+    name: question_count
+    selector:
+    - conversation
+    - question_count
+    value: 0
+    value_type: integer
+  - description: 生成的问题
+    id: 019ae2c2-da4a-4de8-b890-b35184206b1d
+    name: question
+    selector:
+    - conversation
+    - question
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1763778803499-true-1763779145795-target
+      source: '1763778803499'
+      sourceHandle: 'true'
+      target: '1763779145795'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1763779145795-source-answer-target
+      source: '1763779145795'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1763779817127-source-1763780315953-target
+      source: '1763779817127'
+      sourceHandle: source
+      target: '1763780315953'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1763780315953-source-1763780372720-target
+      source: '1763780315953'
+      sourceHandle: source
+      target: '1763780372720'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1763778803499-9b3a623a-b940-4236-9dd8-c297b723fd19-1763780511205-target
+      source: '1763778803499'
+      sourceHandle: 9b3a623a-b940-4236-9dd8-c297b723fd19
+      target: '1763780511205'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1763780511205-source-1763780766747-target
+      source: '1763780511205'
+      sourceHandle: source
+      target: '1763780766747'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: answer
+        targetType: if-else
+      id: 1763780766747-source-1763781035073-target
+      source: '1763780766747'
+      sourceHandle: source
+      target: '1763781035073'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1763781035073-true-1763781050739-target
+      source: '1763781035073'
+      sourceHandle: 'true'
+      target: '1763781050739'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1763781050739-source-1763781133566-target
+      source: '1763781050739'
+      sourceHandle: source
+      target: '1763781133566'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1763781478695-source-17637815045810-target
+      source: '1763781478695'
+      sourceHandle: source
+      target: '17637815045810'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 17637815045810-source-17637815247750-target
+      source: '17637815045810'
+      sourceHandle: source
+      target: '17637815247750'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1763778803499-false-1763781638802-target
+      source: '1763778803499'
+      sourceHandle: 'false'
+      target: '1763781638802'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1763781035073-false-1763781133566-target
+      source: '1763781035073'
+      sourceHandle: 'false'
+      target: '1763781133566'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: question-classifier
+      id: 1763778307399-source-1764244311329-target
+      source: '1763778307399'
+      sourceHandle: source
+      target: '1764244311329'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: if-else
+      id: 1764244311329-1-1764244662125-target
+      source: '1764244311329'
+      sourceHandle: '1'
+      target: '1764244662125'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: if-else
+      id: 1764244311329-2-1764244662125-target
+      source: '1764244311329'
+      sourceHandle: '2'
+      target: '1764244662125'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1764244662125-true-1764244997134-target
+      source: '1764244662125'
+      sourceHandle: 'true'
+      target: '1764244997134'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: if-else
+      id: 1764244997134-source-1764245109176-target
+      source: '1764244997134'
+      sourceHandle: source
+      target: '1764245109176'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1764245109176-true-1764245141255-target
+      source: '1764245109176'
+      sourceHandle: 'true'
+      target: '1764245141255'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1764245109176-false-1764244733527-target
+      source: '1764245109176'
+      sourceHandle: 'false'
+      target: '1764244733527'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1764245141255-source-1763778803499-target
+      source: '1764245141255'
+      sourceHandle: source
+      target: '1763778803499'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1764244662125-false-1763778803499-target
+      source: '1764244662125'
+      sourceHandle: 'false'
+      target: '1763778803499'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1764244311329-1764244561829-1764245726454-target
+      source: '1764244311329'
+      sourceHandle: '1764244561829'
+      target: '1764245726454'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: if-else
+      id: 1764245726454-source-17642457618090-target
+      source: '1764245726454'
+      sourceHandle: source
+      target: '17642457618090'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 17642457618090-true-1764245790485-target
+      source: '17642457618090'
+      sourceHandle: 'true'
+      target: '1764245790485'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 17642457618090-false-1764245810620-target
+      source: '17642457618090'
+      sourceHandle: 'false'
+      target: '1764245810620'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1764245810620-source-1764246366978-target
+      source: '1764245810620'
+      sourceHandle: source
+      target: '1764246366978'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1764246366978-source-1764246430764-target
+      source: '1764246366978'
+      sourceHandle: source
+      target: '1764246430764'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1764245834994-source-1764246430764-target
+      source: '1764245834994'
+      sourceHandle: source
+      target: '1764246430764'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: variable-aggregator
+        targetType: answer
+      id: 1764246430764-source-1764246467820-target
+      source: '1764246430764'
+      sourceHandle: source
+      target: '1764246467820'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 17642457618090-false-1764247195076-target
+      source: '17642457618090'
+      sourceHandle: 'false'
+      target: '1764247195076'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: llm
+      id: 1764247195076-source-1764245834994-target
+      source: '1764247195076'
+      sourceHandle: source
+      target: '1764245834994'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: answer
+        targetType: llm
+      id: answer-source-1763779817127-target
+      source: answer
+      sourceHandle: source
+      target: '1763779817127'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1763781133566-false-1763781478695-target
+      source: '1763781133566'
+      sourceHandle: 'false'
+      target: '1763781478695'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1763781133566-true-1768533638691-target
+      source: '1763781133566'
+      sourceHandle: 'true'
+      target: '1768533638691'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1768533638691-source-1763781442193-target
+      source: '1768533638691'
+      sourceHandle: source
+      target: '1763781442193'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1763781133566-106c4b62-8921-467e-beec-80f885ff28cb-1768533861307-target
+      source: '1763781133566'
+      sourceHandle: 106c4b62-8921-467e-beec-80f885ff28cb
+      target: '1768533861307'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1768533861307-source-1763781457144-target
+      source: '1768533861307'
+      sourceHandle: source
+      target: '1763781457144'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1763781035073-1f0898f3-074e-4bfb-bb07-541d23614b6a-1763781050739-target
+      source: '1763781035073'
+      sourceHandle: 1f0898f3-074e-4bfb-bb07-541d23614b6a
+      target: '1763781050739'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 51
+      id: '1763778307399'
+      position:
+        x: 30
+        y: 933
+      positionAbsolute:
+        x: 30
+        y: 933
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1763779145795.text#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 102
+      id: answer
+      position:
+        x: 2959
+        y: 365
+      positionAbsolute:
+        x: 2959
+        y: 365
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: 7a0f3bbf-59b4-4d8a-b270-d7413ed1108b
+            value: '0'
+            varType: number
+            variable_selector:
+            - conversation
+            - question_count
+          id: 'true'
+          logical_operator: and
+        - case_id: 9b3a623a-b940-4236-9dd8-c297b723fd19
+          conditions:
+          - comparison_operator: ≤
+            id: 23703b55-714e-4ed2-a5ca-19f7708e65a3
+            numberVarType: variable
+            value: '{{#conversation.question_count_total#}}'
+            varType: number
+            variable_selector:
+            - conversation
+            - question_count
+          - comparison_operator: '='
+            id: 7f118295-077a-492d-b0d5-4c47217aaaec
+            numberVarType: variable
+            value: '{{#conversation.pass_count_total#}}'
+            varType: number
+            variable_selector:
+            - conversation
+            - pass_count
+          id: 9b3a623a-b940-4236-9dd8-c297b723fd19
+          logical_operator: or
+        selected: false
+        title: 对话轮数判断
+        type: if-else
+      height: 197
+      id: '1763778803499'
+      position:
+        x: 2204
+        y: 636
+      positionAbsolute:
+        x: 2204
+        y: 636
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-R1
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: fb10cb30-23bc-4aee-860c-30257856da5f
+          role: system
+          text: '#角色
+
+            你是一个专业的{{#conversation.job_name#}}面试官，有着丰富的招聘经验
+
+
+            #任务
+
+            对面试者将要进行面试的岗位{{#conversation.job_name#}}}进行系统的介绍，要求包含工作详情和需要的技能
+
+
+            #面试流程
+
+            1.面试官介绍岗位
+
+
+            #要求
+
+            1.现在处于未开始面试阶段，请先根据{{#conversation.job_name#}}来向面试者介绍介绍岗位信息
+
+            2.输出你对{{#conversation.job_name#}}的介绍，不要有其它输出
+
+
+            示例：
+
+            您好！欢迎参加本次 Java 开发工程师岗位的面试，我是本次的面试官。
+
+            本岗位隶属于公司研发部门，核心负责企业级后端业务系统的设计、开发、测试与维护工作。日常需基于 Spring Boot、Spring Cloud
+            等主流框架搭建高可用、高性能的服务架构，结合 MyBatis 等持久层框架完成数据库交互，参与需求评审、技术方案设计、接口开发及联调等全流程研发工作。
+
+            岗位要求候选人熟练掌握 Java 基础语法、多线程、集合框架、JVM 等核心技术，具备分布式系统开发经验，了解缓存、消息队列等中间件的应用；同时需具备良好的代码规范意识、问题排查能力和团队协作精神，能够快速响应业务需求，参与技术攻坚与系统优化，助力业务高效落地。
+
+            '
+        - id: 47fc4f23-c784-4226-9bfc-70bb1bbd335f
+          role: user
+          text: ''
+        selected: false
+        title: 第一次对话
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763779145795'
+      position:
+        x: 2627.397353988144
+        y: 365
+      positionAbsolute:
+        x: 2627.397353988144
+        y: 365
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-R1
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: e7fea752-6d14-41f9-a06e-2041e00e4aac
+          role: system
+          text: '#要求
+
+            1.根据{{#conversation.job_name#}}}设计问题
+
+            2.保持正式和友好的预期
+
+            3.每次只提出一个问题
+
+            4.不要给出答案
+
+
+
+            #输出
+
+            生成的一个问题，不要同时生成两个及以上或有其它输出，只需要输出问题
+
+
+            要求：
+
+            不要生成其它语文题无关的东西或也舒服好，如：\n,或#开始等与问题无关的语句，只需要输出问题
+
+
+            '
+        selected: false
+        title: 面试
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763779817127'
+      position:
+        x: 3492.540141000254
+        y: 365
+      positionAbsolute:
+        x: 3492.540141000254
+        y: 365
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1763779817127'
+          - text
+          variable_selector:
+          - conversation
+          - question
+          write_mode: over-write
+        - input_type: constant
+          operation: +=
+          value: 1
+          variable_selector:
+          - conversation
+          - question_count
+          write_mode: over-write
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 109
+      id: '1763780315953'
+      position:
+        x: 3921.3590023500037
+        y: 365
+      positionAbsolute:
+        x: 3921.3590023500037
+        y: 365
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#conversation.question#}}'
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 103
+      id: '1763780372720'
+      position:
+        x: 4253.756356338148
+        y: 365
+      positionAbsolute:
+        x: 4253.756356338148
+        y: 365
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-V3.1
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 057aafa3-1b85-428e-b60f-5c3343db7c25
+          role: system
+          text: '#评估回答
+
+            问题:{{#conversation.question#}}
+
+            回答:{{#sys.query#}}
+
+
+            #要求
+
+            1.指出回答的不足之处
+
+            2.给出参考答案
+
+            3.给用户的回答{{#sys.query#}}}进行打分，评分规则为(好，中等，差)，如果是差和中等就是不通过，否则就是通过，如果通就输出好，否则回答不好
+
+            4.输出时不要输出特殊字符如：{\n  \"shortcomings\": \"
+
+
+            示例1：评分等级——好（通过）
+
+            问题: 请说明Java中的重载（Overload）和重写（Override）有什么区别？
+
+            回答: 重载和重写都是Java中多态的体现形式。重载是指同一个类中，方法名相同但参数列表不同的多个方法，参数列表的差异可以是参数个数、类型或顺序，返回值类型和访问修饰符不影响重载，比如同一个类里的add(int
+            a)和add(int a, int b)就是重载。重写则是子类继承父类后，重写父类中同名、同参数列表的方法，要求返回值类型一致（或子类返回值是父类的子类），访问修饰符不能比父类更严格，而且静态方法不能被重写。两者的核心区别是重载发生在同一个类中，基于参数列表区分；重写发生在父子类之间，基于继承关系实现，目的是扩展父类方法逻辑。
+
+            评估：
+
+            1. 不足之处：回答整体全面准确，无明显不足；若需优化，可补充重载和重写的使用场景（如重载适配多参数输入，重写实现多态），让逻辑更完整。
+
+            2. 参考答案：重载（Overload）和重写（Override）是Java实现多态的两种核心方式，核心区别体现在定义、范围、规则和场景上：①
+            定义不同：重载是同一类中方法名相同、参数列表（个数/类型/顺序）不同的方法；重写是子类对父类同名、同参数列表方法的重新实现。② 范围不同：重载发生在同一类内部；重写发生在父子类之间（依赖继承）。③
+            规则不同：重载无返回值/访问修饰符限制；重写要求返回值一致（或协变）、访问修饰符不严于父类、不能重写静态方法。④ 场景不同：重载用于同一功能的多参数适配（如Math.abs支持多种数据类型）；重写用于子类扩展父类逻辑（如Animal.eat()被Dog重写为“吃骨头”）。
+
+            3. 评分：好（通过）
+
+            示例2：评分等级——中等
+
+            问题: 请介绍HashMap的底层实现原理（JDK1.8及以后）。
+
+            回答: JDK1.8之后的HashMap底层是数组加链表和红黑树实现的。数组是存储元素的主体，初始容量好像是16，当元素多了之后会扩容。如果两个元素的哈希值一样，就会存在同一个数组位置，形成链表；当链表长度超过一定数值，就会变成红黑树，这样查询更快。哈希值是通过key的hashCode方法计算的，然后确定在数组中的位置。
+
+            评估：
+
+            1. 不足之处：① 核心细节缺失：未说明负载因子（0.75）及扩容触发条件（元素个数＞容量×负载因子）；未明确链表转红黑树的具体阈值（长度≥8且数组容量≥64）和红黑树转回链表的阈值（节点数＜6）。②
+            逻辑不完整：未解释哈希扰动函数的作用（减少哈希冲突）；对数组、链表、红黑树的协同工作逻辑描述较模糊。③ 表述不精准：“好像是16”“一定数值”等模糊表述，缺乏专业性。
+
+            2. 参考答案：JDK1.8及以后的HashMap底层基于“数组+链表+红黑树”实现，核心逻辑如下：① 存储结构：数组（Node[] table）是核心存储容器，初始容量为16，负载因子为0.75；链表用于解决哈希冲突（不同key计算出同一数组索引）；红黑树用于优化长链表的查询效率。②
+            哈希计算：通过key的hashCode()获取原始哈希值，经扰动函数（多次异或和右移）处理后，得到数组索引，减少哈希冲突。③ 扩容机制：当元素个数超过“容量×负载因子”时，触发扩容，容量翻倍（保证容量为2的幂），并将原数组元素重新哈希分配到新数组。④
+            结构转换：当链表长度≥8且数组容量≥64时，链表转为红黑树（查询效率从O(n)提升至O(logn)）；当红黑树节点数＜6时，转回链表（减少红黑树维护开销）。
+
+            3. 评分：中等（通过）
+
+            示例3：评分等级——差（不通过）
+
+            问题: 什么是Java的垃圾回收机制？常见的垃圾回收器有哪些？
+
+            回答: 垃圾回收就是JVM回收没用的对象，释放内存。因为Java不用手动释放内存，所以有这个机制。常见的垃圾回收器好像有几个，记不太清了，比如G1，还有一个叫CMS的，其他的想不起来了。
+
+            评估：
+
+            1. 不足之处：① 核心定义模糊：未说明垃圾回收的核心目标（避免内存泄漏/溢出）、回收范围（堆内存）；未解释“无用对象”的判断标准（可达性分析算法）。②
+            内容严重缺失：未完整列举常见垃圾回收器（仅提及2个，遗漏Serial GC、Parallel GC、ZGC、Shenandoah GC等核心回收器）。③
+            表述不专业：“好像有几个”“记不太清了”“想不起来了”等表述，体现对知识点掌握极差，无法满足面试基本要求。
+
+            2. 参考答案：Java垃圾回收机制（GC）是JVM的核心功能，指自动识别并回收堆内存中“无用对象”（不可达对象）的内存资源，核心目标是避免内存泄漏和内存溢出，无需程序员手动管理内存。判断对象可回收的核心方法是可达性分析算法（以GC
+            Roots为起点，不可达对象标记为可回收）。常见的垃圾回收器包括：① 串行回收器（Serial GC）：单线程回收，适用于单核/小内存场景；②
+            并行回收器（Parallel GC）：多线程回收，追求高吞吐量；③ 并发标记清除回收器（CMS GC）：并发回收，追求低停顿；④ 区域化分代回收器（G1
+            GC）：兼顾吞吐量和低停顿，适用于大内存场景；⑤ 低延迟回收器（ZGC/Shenandoah GC）：极致低停顿，适用于超大内存/实时场景。
+
+            3. 评分：差（不通过）
+
+            '
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              Reference_Answer:
+                description: 参考答案
+                type: string
+              isPassed:
+                description: 是否通过
+                type: string
+              shortcomings:
+                description: 针对回答的不足之处
+                type: string
+            required: []
+            type: object
+        structured_output_enabled: true
+        title: 回答评估
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763780511205'
+      position:
+        x: 2959
+        y: 527.8590023500043
+      positionAbsolute:
+        x: 2959
+        y: 527.8590023500043
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: /{{#1763780511205.text#}}
+        selected: false
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 102
+      id: '1763780766747'
+      position:
+        x: 3291
+        y: 514.5
+      positionAbsolute:
+        x: 3291
+        y: 514.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: ea1715a4-7197-4a2f-9fc6-7ab58195bade
+            value: 好
+            varType: object
+            variable_selector:
+            - '1763780511205'
+            - structured_output
+            - isPassed
+          id: 'true'
+          logical_operator: and
+        - case_id: 1f0898f3-074e-4bfb-bb07-541d23614b6a
+          conditions:
+          - comparison_operator: is
+            id: 0abc6133-1bb8-454a-8770-0d40f195d340
+            value: 'true'
+            varType: object
+            variable_selector:
+            - '1763780511205'
+            - structured_output
+          logical_operator: and
+        selected: false
+        title: 条件分支 2
+        type: if-else
+      height: 171
+      id: '1763781035073'
+      position:
+        x: 3623
+        y: 515
+      positionAbsolute:
+        x: 3623
+        y: 515
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        items:
+        - input_type: constant
+          operation: +=
+          value: 1
+          variable_selector:
+          - conversation
+          - pass_count
+          write_mode: over-write
+        selected: false
+        title: 变量赋值 2
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1763781050739'
+      position:
+        x: 4287
+        y: 542.9208096496569
+      positionAbsolute:
+        x: 4287
+        y: 542.9208096496569
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: a27cfb68-2f78-44fc-9e50-7036e9c082c9
+            numberVarType: constant
+            value: '3'
+            varType: number
+            variable_selector:
+            - conversation
+            - pass_count
+          id: 'true'
+          logical_operator: and
+        - case_id: 106c4b62-8921-467e-beec-80f885ff28cb
+          conditions:
+          - comparison_operator: '='
+            id: b8d7895a-5165-4b7c-b13d-4c246c0c3dda
+            numberVarType: constant
+            value: '5'
+            varType: number
+            variable_selector:
+            - conversation
+            - question_count
+          - comparison_operator: <
+            id: 278d409d-ce5f-4b9d-a081-b03a8ea75fba
+            numberVarType: constant
+            value: '3'
+            varType: number
+            variable_selector:
+            - conversation
+            - pass_count
+          id: 106c4b62-8921-467e-beec-80f885ff28cb
+          logical_operator: and
+        selected: false
+        title: 条件分支 3
+        type: if-else
+      height: 197
+      id: '1763781133566'
+      position:
+        x: 4619
+        y: 410
+      positionAbsolute:
+        x: 4619
+        y: 410
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '恭喜你面试成功
+
+          总面试的题目数为{{#conversation.question_count#}}个
+
+          回答通过数为{{#conversation.pass_count#}}个
+
+          我们对您的评估如下：
+
+          {{#1768533638691.text#}}}'
+        selected: false
+        title: 面试成功
+        type: answer
+        variables: []
+      height: 158
+      id: '1763781442193'
+      position:
+        x: 5323.949025850046
+        y: 81.28527025048726
+      positionAbsolute:
+        x: 5323.949025850046
+        y: 81.28527025048726
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '很遗憾你面试失败
+
+          总面试的题目数为{{#conversation.question_count#}}个
+
+          回答通过数为{{#conversation.pass_count#}}个
+
+          我们对您的评估如下：
+
+          {{#1768533861307.text#}}}'
+        selected: false
+        title: 面试失败
+        type: answer
+        variables: []
+      height: 158
+      id: '1763781457144'
+      position:
+        x: 5674
+        y: 270
+      positionAbsolute:
+        x: 5674
+        y: 270
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-R1
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 9695fb8d-0beb-459b-86e1-eede77ee1738
+          role: system
+          text: '#要求
+
+            1.根据{{#conversation.job_name#}}}设计问题
+
+            2.保持正式和友好的预期
+
+            3.每次只提出一个问题
+
+            4.不要给出答案
+
+
+
+            #输出
+
+            生成的一个问题，不要同时生成两个及以上或有其它输出，只需要输出问题，并且同一个
+
+
+            '
+        selected: false
+        title: 继续面试
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1763781478695'
+      position:
+        x: 5223.244120952021
+        y: 532.0498824997882
+      positionAbsolute:
+        x: 5223.244120952021
+        y: 532.0498824997882
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1763781478695'
+          - text
+          variable_selector:
+          - conversation
+          - question
+          write_mode: over-write
+        - input_type: constant
+          operation: +=
+          value: 1
+          variable_selector:
+          - conversation
+          - question_count
+          write_mode: over-write
+        selected: false
+        title: 变量赋值 (1)
+        type: assigner
+        version: '2'
+      height: 109
+      id: '17637815045810'
+      position:
+        x: 5563.449109202
+        y: 527.8590023500043
+      positionAbsolute:
+        x: 5563.449109202
+        y: 527.8590023500043
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#conversation.question#}}{{#1763781478695.text#}}'
+        selected: false
+        title: 直接回复 2 (1)
+        type: answer
+        variables: []
+      height: 103
+      id: '17637815247750'
+      position:
+        x: 5957.807019901839
+        y: 527.8590023500043
+      positionAbsolute:
+        x: 5957.807019901839
+        y: 527.8590023500043
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: 本次面试已经结束，请重新开始对话
+        selected: false
+        title: 直接回复 7
+        type: answer
+        variables: []
+      height: 99
+      id: '1763781638802'
+      position:
+        x: 3291
+        y: 670
+      positionAbsolute:
+        x: 3291
+        y: 670
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        classes:
+        - id: '1'
+          name: 面试
+        - id: '2'
+          name: 回答问题
+        - id: '1764244561829'
+          name: 岗位查询
+        - id: '1764244566651'
+          name: 企业查询
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-V3
+          provider: langgenius/siliconflow/siliconflow
+        query_variable_selector:
+        - '1763778307399'
+        - sys.query
+        selected: false
+        title: 问题分类器
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 245
+      id: '1764244311329'
+      position:
+        x: 362
+        y: 933
+      positionAbsolute:
+        x: 362
+        y: 933
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: 43772464-810d-4160-92a5-896c694a812c
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - job_name
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支 4
+        type: if-else
+      height: 123
+      id: '1764244662125'
+      position:
+        x: 694
+        y: 933
+      positionAbsolute:
+        x: 694
+        y: 933
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: 如果要面试请先输入要面试的岗位，比如我要面试java开发工程师
+        selected: false
+        title: 直接回复 8
+        type: answer
+        variables: []
+      height: 115
+      id: '1764244733527'
+      position:
+        x: 1935.4285714285716
+        y: 1021.1428571428572
+      positionAbsolute:
+        x: 1935.4285714285716
+        y: 1021.1428571428572
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-V3
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: e6551460-bc5a-4d15-be2d-bd68c3ebb7ed
+          role: system
+          text: '你是一个专业的招聘助手，你可以从下面的内容中提取出岗位信息，提取完成后，如果提取成功后只需要输出岗位名称，不能输出其他的任何信息，如果没有提取成功则输出否
+
+            如：{{#sys.query#}}}为java开发工程师面试
+
+            你需要输出：java开发工程师'
+        selected: false
+        title: LLM 5
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1764244997134'
+      position:
+        x: 1117
+        y: 801
+      positionAbsolute:
+        x: 1117
+        y: 801
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is not
+            id: dd82cd6c-69f7-472a-b06e-92ad597bd9d0
+            value: 否
+            varType: string
+            variable_selector:
+            - '1764244997134'
+            - text
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支 5
+        type: if-else
+      height: 123
+      id: '1764245109176'
+      position:
+        x: 1449
+        y: 801
+      positionAbsolute:
+        x: 1449
+        y: 801
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1764244997134'
+          - text
+          variable_selector:
+          - conversation
+          - job_name
+          write_mode: over-write
+        selected: false
+        title: 变量赋值 4
+        type: assigner
+        version: '2'
+      height: 83
+      id: '1764245141255'
+      position:
+        x: 1863.6134991952908
+        y: 738.8571428571429
+      positionAbsolute:
+        x: 1863.6134991952908
+        y: 738.8571428571429
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-V3.1-Terminus
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 6731bd20-bad1-4daa-a3ad-5988f184548c
+          role: system
+          text: '你是一个专业的招聘助手，你可以从{{#sys.query#}}内容中提取出岗位信息，提取完成后，如果提取成功后只需要输出岗位信息，不能输出其他的任何信息，如果没有提取成功则输出否
+
+            如：{{#sys.query#}}}为"查询java岗位信息"，则输出"是"；{{#sys.query#}}}为"岗位查询"则输出"否"'
+        - id: dadebb24-4a59-4204-8a8f-0627d57019d9
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: LLM 6
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1764245726454'
+      position:
+        x: 694
+        y: 1096
+      positionAbsolute:
+        x: 694
+        y: 1096
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: dd82cd6c-69f7-472a-b06e-92ad597bd9d0
+            value: 否
+            varType: string
+            variable_selector:
+            - '1764245726454'
+            - text
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支 5 (1)
+        type: if-else
+      height: 123
+      id: '17642457618090'
+      position:
+        x: 1192.1030399500728
+        y: 1102.2358317859264
+      positionAbsolute:
+        x: 1192.1030399500728
+        y: 1102.2358317859264
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: 没有输入岗位信息无法查询
+        selected: false
+        title: 直接回复 9
+        type: answer
+        variables: []
+      height: 99
+      id: '1764245790485'
+      position:
+        x: 1569.1428571428578
+        y: 1021.1428571428572
+      positionAbsolute:
+        x: 1569.1428571428578
+        y: 1021.1428571428572
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        dataset_ids:
+        - K4+Ric5c0qRSGbCUnUza3p54rtU2/5HvMssoF3zwtunOYnddY37IGXWqDajQO8IG
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            model: BAAI/bge-reranker-v2-m3
+            provider: langgenius/siliconflow/siliconflow
+          top_k: 4
+        query_variable_selector:
+        - '1763778307399'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 89
+      id: '1764245810620'
+      position:
+        x: 1519.1428571428578
+        y: 1163
+      positionAbsolute:
+        x: 1519.1428571428578
+        y: 1163
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-V3.1
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 5be7b92e-4084-413a-8b08-adfeccafbc65
+          role: system
+          text: 优化检索出来的内容{{#1764247195076.text#}}}，然后进行输出即可
+        selected: false
+        title: LLM 7
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1764245834994'
+      position:
+        x: 1961.3552833642816
+        y: 1434.4285714285713
+      positionAbsolute:
+        x: 1961.3552833642816
+        y: 1434.4285714285713
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        is_team_authorization: false
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Defines the query you want to search.
+            ja_JP: Defines the query you want to search.
+            pt_BR: Defines the query you want to search.
+            zh_Hans: 定义您要搜索的查询。
+          label:
+            en_US: Query
+            ja_JP: Query
+            pt_BR: Query
+            zh_Hans: 询问
+          llm_description: Defines the search query you want to search.
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: text
+          form: form
+          human_description:
+            en_US: used for selecting the result type, text or link
+            ja_JP: used for selecting the result type, text or link
+            pt_BR: used for selecting the result type, text or link
+            zh_Hans: 用于选择结果类型，使用文本还是链接进行展示
+          label:
+            en_US: Result type
+            ja_JP: Result type
+            pt_BR: Result type
+            zh_Hans: 结果类型
+          llm_description: ''
+          max: null
+          min: null
+          name: result_type
+          options:
+          - icon: ''
+            label:
+              en_US: text
+              ja_JP: text
+              pt_BR: text
+              zh_Hans: 文本
+            value: text
+          - icon: ''
+            label:
+              en_US: link
+              ja_JP: link
+              pt_BR: link
+              zh_Hans: 链接
+            value: link
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Defines from where you want the search to originate. (For example
+              - New York)
+            ja_JP: Defines from where you want the search to originate. (For example
+              - New York)
+            pt_BR: Defines from where you want the search to originate. (For example
+              - New York)
+            zh_Hans: 定义您想要搜索的起始位置。 （例如 - 纽约）
+          label:
+            en_US: Location
+            ja_JP: Location
+            pt_BR: Location
+            zh_Hans: 询问
+          llm_description: Defines from where you want the search to originate. (For
+            example - New York)
+          max: null
+          min: null
+          name: location
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: US
+          form: form
+          human_description:
+            en_US: Defines the country of the search. Default is "US".
+            ja_JP: Defines the country of the search. Default is "US".
+            pt_BR: Defines the country of the search. Default is "US".
+            zh_Hans: 定义搜索的国家/地区。默认为“美国”。
+          label:
+            en_US: Country
+            ja_JP: Country
+            pt_BR: Country
+            zh_Hans: 国家
+          llm_description: Defines the gl parameter of the Google search.
+          max: null
+          min: null
+          name: gl
+          options:
+          - icon: ''
+            label:
+              en_US: Afghanistan
+              ja_JP: Afghanistan
+              pt_BR: Afeganistão
+              zh_Hans: 阿富汗
+            value: AF
+          - icon: ''
+            label:
+              en_US: Albania
+              ja_JP: Albania
+              pt_BR: Albânia
+              zh_Hans: 阿尔巴尼亚
+            value: AL
+          - icon: ''
+            label:
+              en_US: Algeria
+              ja_JP: Algeria
+              pt_BR: Argélia
+              zh_Hans: 阿尔及利亚
+            value: DZ
+          - icon: ''
+            label:
+              en_US: American Samoa
+              ja_JP: American Samoa
+              pt_BR: Samoa Americana
+              zh_Hans: 美属萨摩亚
+            value: AS
+          - icon: ''
+            label:
+              en_US: Andorra
+              ja_JP: Andorra
+              pt_BR: Andorra
+              zh_Hans: 安道尔
+            value: AD
+          - icon: ''
+            label:
+              en_US: Angola
+              ja_JP: Angola
+              pt_BR: Angola
+              zh_Hans: 安哥拉
+            value: AO
+          - icon: ''
+            label:
+              en_US: Anguilla
+              ja_JP: Anguilla
+              pt_BR: Anguilla
+              zh_Hans: 安圭拉
+            value: AI
+          - icon: ''
+            label:
+              en_US: Antarctica
+              ja_JP: Antarctica
+              pt_BR: Antártica
+              zh_Hans: 南极洲
+            value: AQ
+          - icon: ''
+            label:
+              en_US: Antigua and Barbuda
+              ja_JP: Antigua and Barbuda
+              pt_BR: Antígua e Barbuda
+              zh_Hans: 安提瓜和巴布达
+            value: AG
+          - icon: ''
+            label:
+              en_US: Argentina
+              ja_JP: Argentina
+              pt_BR: Argentina
+              zh_Hans: 阿根廷
+            value: AR
+          - icon: ''
+            label:
+              en_US: Armenia
+              ja_JP: Armenia
+              pt_BR: Armênia
+              zh_Hans: 亚美尼亚
+            value: AM
+          - icon: ''
+            label:
+              en_US: Aruba
+              ja_JP: Aruba
+              pt_BR: Aruba
+              zh_Hans: 阿鲁巴
+            value: AW
+          - icon: ''
+            label:
+              en_US: Australia
+              ja_JP: Australia
+              pt_BR: Austrália
+              zh_Hans: 澳大利亚
+            value: AU
+          - icon: ''
+            label:
+              en_US: Austria
+              ja_JP: Austria
+              pt_BR: Áustria
+              zh_Hans: 奥地利
+            value: AT
+          - icon: ''
+            label:
+              en_US: Azerbaijan
+              ja_JP: Azerbaijan
+              pt_BR: Azerbaijão
+              zh_Hans: 阿塞拜疆
+            value: AZ
+          - icon: ''
+            label:
+              en_US: Bahamas
+              ja_JP: Bahamas
+              pt_BR: Bahamas
+              zh_Hans: 巴哈马
+            value: BS
+          - icon: ''
+            label:
+              en_US: Bahrain
+              ja_JP: Bahrain
+              pt_BR: Bahrein
+              zh_Hans: 巴林
+            value: BH
+          - icon: ''
+            label:
+              en_US: Bangladesh
+              ja_JP: Bangladesh
+              pt_BR: Bangladesh
+              zh_Hans: 孟加拉国
+            value: BD
+          - icon: ''
+            label:
+              en_US: Barbados
+              ja_JP: Barbados
+              pt_BR: Barbados
+              zh_Hans: 巴巴多斯
+            value: BB
+          - icon: ''
+            label:
+              en_US: Belarus
+              ja_JP: Belarus
+              pt_BR: Bielorrússia
+              zh_Hans: 白俄罗斯
+            value: BY
+          - icon: ''
+            label:
+              en_US: Belgium
+              ja_JP: Belgium
+              pt_BR: Bélgica
+              zh_Hans: 比利时
+            value: BE
+          - icon: ''
+            label:
+              en_US: Belize
+              ja_JP: Belize
+              pt_BR: Belize
+              zh_Hans: 伯利兹
+            value: BZ
+          - icon: ''
+            label:
+              en_US: Benin
+              ja_JP: Benin
+              pt_BR: Benim
+              zh_Hans: 贝宁
+            value: BJ
+          - icon: ''
+            label:
+              en_US: Bermuda
+              ja_JP: Bermuda
+              pt_BR: Bermudas
+              zh_Hans: 百慕大
+            value: BM
+          - icon: ''
+            label:
+              en_US: Bhutan
+              ja_JP: Bhutan
+              pt_BR: Butão
+              zh_Hans: 不丹
+            value: BT
+          - icon: ''
+            label:
+              en_US: Bolivia
+              ja_JP: Bolivia
+              pt_BR: Bolívia
+              zh_Hans: 玻利维亚
+            value: BO
+          - icon: ''
+            label:
+              en_US: Bosnia and Herzegovina
+              ja_JP: Bosnia and Herzegovina
+              pt_BR: Bósnia e Herzegovina
+              zh_Hans: 波斯尼亚和黑塞哥维那
+            value: BA
+          - icon: ''
+            label:
+              en_US: Botswana
+              ja_JP: Botswana
+              pt_BR: Botsuana
+              zh_Hans: 博茨瓦纳
+            value: BW
+          - icon: ''
+            label:
+              en_US: Bouvet Island
+              ja_JP: Bouvet Island
+              pt_BR: Ilha Bouvet
+              zh_Hans: 布韦岛
+            value: BV
+          - icon: ''
+            label:
+              en_US: Brazil
+              ja_JP: Brazil
+              pt_BR: Brasil
+              zh_Hans: 巴西
+            value: BR
+          - icon: ''
+            label:
+              en_US: British Indian Ocean Territory
+              ja_JP: British Indian Ocean Territory
+              pt_BR: Território Britânico do Oceano Índico
+              zh_Hans: 英属印度洋领地
+            value: IO
+          - icon: ''
+            label:
+              en_US: Brunei Darussalam
+              ja_JP: Brunei Darussalam
+              pt_BR: Brunei Darussalam
+              zh_Hans: 文莱
+            value: BN
+          - icon: ''
+            label:
+              en_US: Bulgaria
+              ja_JP: Bulgaria
+              pt_BR: Bulgária
+              zh_Hans: 保加利亚
+            value: BG
+          - icon: ''
+            label:
+              en_US: Burkina Faso
+              ja_JP: Burkina Faso
+              pt_BR: Burkina Faso
+              zh_Hans: 布基纳法索
+            value: BF
+          - icon: ''
+            label:
+              en_US: Burundi
+              ja_JP: Burundi
+              pt_BR: Burundi
+              zh_Hans: 布隆迪
+            value: BI
+          - icon: ''
+            label:
+              en_US: Cambodia
+              ja_JP: Cambodia
+              pt_BR: Camboja
+              zh_Hans: 柬埔寨
+            value: KH
+          - icon: ''
+            label:
+              en_US: Cameroon
+              ja_JP: Cameroon
+              pt_BR: Camarões
+              zh_Hans: 喀麦隆
+            value: CM
+          - icon: ''
+            label:
+              en_US: Canada
+              ja_JP: Canada
+              pt_BR: Canadá
+              zh_Hans: 加拿大
+            value: CA
+          - icon: ''
+            label:
+              en_US: Cape Verde
+              ja_JP: Cape Verde
+              pt_BR: Cabo Verde
+              zh_Hans: 佛得角
+            value: CV
+          - icon: ''
+            label:
+              en_US: Cayman Islands
+              ja_JP: Cayman Islands
+              pt_BR: Ilhas Cayman
+              zh_Hans: 开曼群岛
+            value: KY
+          - icon: ''
+            label:
+              en_US: Central African Republic
+              ja_JP: Central African Republic
+              pt_BR: República Centro-Africana
+              zh_Hans: 中非共和国
+            value: CF
+          - icon: ''
+            label:
+              en_US: Chad
+              ja_JP: Chad
+              pt_BR: Chade
+              zh_Hans: 乍得
+            value: TD
+          - icon: ''
+            label:
+              en_US: Chile
+              ja_JP: Chile
+              pt_BR: Chile
+              zh_Hans: 智利
+            value: CL
+          - icon: ''
+            label:
+              en_US: China
+              ja_JP: China
+              pt_BR: China
+              zh_Hans: 中国
+            value: CN
+          - icon: ''
+            label:
+              en_US: Christmas Island
+              ja_JP: Christmas Island
+              pt_BR: Ilha do Natal
+              zh_Hans: 圣诞岛
+            value: CX
+          - icon: ''
+            label:
+              en_US: Cocos (Keeling) Islands
+              ja_JP: Cocos (Keeling) Islands
+              pt_BR: Ilhas Cocos (Keeling)
+              zh_Hans: 科科斯（基林）群岛
+            value: CC
+          - icon: ''
+            label:
+              en_US: Colombia
+              ja_JP: Colombia
+              pt_BR: Colômbia
+              zh_Hans: 哥伦比亚
+            value: CO
+          - icon: ''
+            label:
+              en_US: Comoros
+              ja_JP: Comoros
+              pt_BR: Comores
+              zh_Hans: 科摩罗
+            value: KM
+          - icon: ''
+            label:
+              en_US: Congo
+              ja_JP: Congo
+              pt_BR: Congo
+              zh_Hans: 刚果
+            value: CG
+          - icon: ''
+            label:
+              en_US: Congo, the Democratic Republic of the
+              ja_JP: Congo, the Democratic Republic of the
+              pt_BR: Congo, República Democrática do
+              zh_Hans: 刚果民主共和国
+            value: CD
+          - icon: ''
+            label:
+              en_US: Cook Islands
+              ja_JP: Cook Islands
+              pt_BR: Ilhas Cook
+              zh_Hans: 库克群岛
+            value: CK
+          - icon: ''
+            label:
+              en_US: Costa Rica
+              ja_JP: Costa Rica
+              pt_BR: Costa Rica
+              zh_Hans: 哥斯达黎加
+            value: CR
+          - icon: ''
+            label:
+              en_US: Cote D'ivoire
+              ja_JP: Cote D'ivoire
+              pt_BR: Costa do Marfim
+              zh_Hans: 科特迪瓦
+            value: CI
+          - icon: ''
+            label:
+              en_US: Croatia
+              ja_JP: Croatia
+              pt_BR: Croácia
+              zh_Hans: 克罗地亚
+            value: HR
+          - icon: ''
+            label:
+              en_US: Cuba
+              ja_JP: Cuba
+              pt_BR: Cuba
+              zh_Hans: 古巴
+            value: CU
+          - icon: ''
+            label:
+              en_US: Cyprus
+              ja_JP: Cyprus
+              pt_BR: Chipre
+              zh_Hans: 塞浦路斯
+            value: CY
+          - icon: ''
+            label:
+              en_US: Czech Republic
+              ja_JP: Czech Republic
+              pt_BR: República Tcheca
+              zh_Hans: 捷克共和国
+            value: CZ
+          - icon: ''
+            label:
+              en_US: Denmark
+              ja_JP: Denmark
+              pt_BR: Dinamarca
+              zh_Hans: 丹麦
+            value: DK
+          - icon: ''
+            label:
+              en_US: Djibouti
+              ja_JP: Djibouti
+              pt_BR: Djibuti
+              zh_Hans: 吉布提
+            value: DJ
+          - icon: ''
+            label:
+              en_US: Dominica
+              ja_JP: Dominica
+              pt_BR: Dominica
+              zh_Hans: 多米尼克
+            value: DM
+          - icon: ''
+            label:
+              en_US: Dominican Republic
+              ja_JP: Dominican Republic
+              pt_BR: República Dominicana
+              zh_Hans: 多米尼加共和国
+            value: DO
+          - icon: ''
+            label:
+              en_US: Ecuador
+              ja_JP: Ecuador
+              pt_BR: Equador
+              zh_Hans: 厄瓜多尔
+            value: EC
+          - icon: ''
+            label:
+              en_US: Egypt
+              ja_JP: Egypt
+              pt_BR: Egito
+              zh_Hans: 埃及
+            value: EG
+          - icon: ''
+            label:
+              en_US: El Salvador
+              ja_JP: El Salvador
+              pt_BR: El Salvador
+              zh_Hans: 萨尔瓦多
+            value: SV
+          - icon: ''
+            label:
+              en_US: Equatorial Guinea
+              ja_JP: Equatorial Guinea
+              pt_BR: Guiné Equatorial
+              zh_Hans: 赤道几内亚
+            value: GQ
+          - icon: ''
+            label:
+              en_US: Eritrea
+              ja_JP: Eritrea
+              pt_BR: Eritreia
+              zh_Hans: 厄立特里亚
+            value: ER
+          - icon: ''
+            label:
+              en_US: Estonia
+              ja_JP: Estonia
+              pt_BR: Estônia
+              zh_Hans: 爱沙尼亚
+            value: EE
+          - icon: ''
+            label:
+              en_US: Ethiopia
+              ja_JP: Ethiopia
+              pt_BR: Etiópia
+              zh_Hans: 埃塞俄比亚
+            value: ET
+          - icon: ''
+            label:
+              en_US: Falkland Islands (Malvinas)
+              ja_JP: Falkland Islands (Malvinas)
+              pt_BR: Ilhas Falkland (Malvinas)
+              zh_Hans: 福克兰群岛（马尔维纳斯）
+            value: FK
+          - icon: ''
+            label:
+              en_US: Faroe Islands
+              ja_JP: Faroe Islands
+              pt_BR: Ilhas Faroe
+              zh_Hans: 法罗群岛
+            value: FO
+          - icon: ''
+            label:
+              en_US: Fiji
+              ja_JP: Fiji
+              pt_BR: Fiji
+              zh_Hans: 斐济
+            value: FJ
+          - icon: ''
+            label:
+              en_US: Finland
+              ja_JP: Finland
+              pt_BR: Finlândia
+              zh_Hans: 芬兰
+            value: FI
+          - icon: ''
+            label:
+              en_US: France
+              ja_JP: France
+              pt_BR: França
+              zh_Hans: 法国
+            value: FR
+          - icon: ''
+            label:
+              en_US: French Guiana
+              ja_JP: French Guiana
+              pt_BR: Guiana Francesa
+              zh_Hans: 法属圭亚那
+            value: GF
+          - icon: ''
+            label:
+              en_US: French Polynesia
+              ja_JP: French Polynesia
+              pt_BR: Polinésia Francesa
+              zh_Hans: 法属波利尼西亚
+            value: PF
+          - icon: ''
+            label:
+              en_US: French Southern Territories
+              ja_JP: French Southern Territories
+              pt_BR: Territórios Franceses do Sul
+              zh_Hans: 法属南部领地
+            value: TF
+          - icon: ''
+            label:
+              en_US: Gabon
+              ja_JP: Gabon
+              pt_BR: Gabão
+              zh_Hans: 加蓬
+            value: GA
+          - icon: ''
+            label:
+              en_US: Gambia
+              ja_JP: Gambia
+              pt_BR: Gâmbia
+              zh_Hans: 冈比亚
+            value: GM
+          - icon: ''
+            label:
+              en_US: Georgia
+              ja_JP: Georgia
+              pt_BR: Geórgia
+              zh_Hans: 格鲁吉亚
+            value: GE
+          - icon: ''
+            label:
+              en_US: Germany
+              ja_JP: Germany
+              pt_BR: Alemanha
+              zh_Hans: 德国
+            value: DE
+          - icon: ''
+            label:
+              en_US: Ghana
+              ja_JP: Ghana
+              pt_BR: Gana
+              zh_Hans: 加纳
+            value: GH
+          - icon: ''
+            label:
+              en_US: Gibraltar
+              ja_JP: Gibraltar
+              pt_BR: Gibraltar
+              zh_Hans: 直布罗陀
+            value: GI
+          - icon: ''
+            label:
+              en_US: Greece
+              ja_JP: Greece
+              pt_BR: Grécia
+              zh_Hans: 希腊
+            value: GR
+          - icon: ''
+            label:
+              en_US: Greenland
+              ja_JP: Greenland
+              pt_BR: Groenlândia
+              zh_Hans: 格陵兰
+            value: GL
+          - icon: ''
+            label:
+              en_US: Grenada
+              ja_JP: Grenada
+              pt_BR: Granada
+              zh_Hans: 格林纳达
+            value: GD
+          - icon: ''
+            label:
+              en_US: Guadeloupe
+              ja_JP: Guadeloupe
+              pt_BR: Guadalupe
+              zh_Hans: 瓜德罗普
+            value: GP
+          - icon: ''
+            label:
+              en_US: Guam
+              ja_JP: Guam
+              pt_BR: Guam
+              zh_Hans: 关岛
+            value: GU
+          - icon: ''
+            label:
+              en_US: Guatemala
+              ja_JP: Guatemala
+              pt_BR: Guatemala
+              zh_Hans: 危地马拉
+            value: GT
+          - icon: ''
+            label:
+              en_US: Guinea
+              ja_JP: Guinea
+              pt_BR: Guiné
+              zh_Hans: 几内亚
+            value: GN
+          - icon: ''
+            label:
+              en_US: Guinea-Bissau
+              ja_JP: Guinea-Bissau
+              pt_BR: Guiné-Bissau
+              zh_Hans: 几内亚比绍
+            value: GW
+          - icon: ''
+            label:
+              en_US: Guyana
+              ja_JP: Guyana
+              pt_BR: Guiana
+              zh_Hans: 圭亚那
+            value: GY
+          - icon: ''
+            label:
+              en_US: Haiti
+              ja_JP: Haiti
+              pt_BR: Haiti
+              zh_Hans: 海地
+            value: HT
+          - icon: ''
+            label:
+              en_US: Heard Island and McDonald Islands
+              ja_JP: Heard Island and McDonald Islands
+              pt_BR: Ilha Heard e Ilhas McDonald
+              zh_Hans: 赫德岛和麦克唐纳群岛
+            value: HM
+          - icon: ''
+            label:
+              en_US: Holy See (Vatican City State)
+              ja_JP: Holy See (Vatican City State)
+              pt_BR: Santa Sé (Estado da Cidade do Vaticano)
+              zh_Hans: 教廷（梵蒂冈城国）
+            value: VA
+          - icon: ''
+            label:
+              en_US: Honduras
+              ja_JP: Honduras
+              pt_BR: Honduras
+              zh_Hans: 洪都拉斯
+            value: HN
+          - icon: ''
+            label:
+              en_US: Hong Kong
+              ja_JP: Hong Kong
+              pt_BR: Hong Kong
+              zh_Hans: 香港
+            value: HK
+          - icon: ''
+            label:
+              en_US: Hungary
+              ja_JP: Hungary
+              pt_BR: Hungria
+              zh_Hans: 匈牙利
+            value: HU
+          - icon: ''
+            label:
+              en_US: Iceland
+              ja_JP: Iceland
+              pt_BR: Islândia
+              zh_Hans: 冰岛
+            value: IS
+          - icon: ''
+            label:
+              en_US: India
+              ja_JP: India
+              pt_BR: Índia
+              zh_Hans: 印度
+            value: IN
+          - icon: ''
+            label:
+              en_US: Indonesia
+              ja_JP: Indonesia
+              pt_BR: Indonésia
+              zh_Hans: 印度尼西亚
+            value: ID
+          - icon: ''
+            label:
+              en_US: Iran, Islamic Republic of
+              ja_JP: Iran, Islamic Republic of
+              pt_BR: Irã
+              zh_Hans: 伊朗
+            value: IR
+          - icon: ''
+            label:
+              en_US: Iraq
+              ja_JP: Iraq
+              pt_BR: Iraque
+              zh_Hans: 伊拉克
+            value: IQ
+          - icon: ''
+            label:
+              en_US: Ireland
+              ja_JP: Ireland
+              pt_BR: Irlanda
+              zh_Hans: 爱尔兰
+            value: IE
+          - icon: ''
+            label:
+              en_US: Israel
+              ja_JP: Israel
+              pt_BR: Israel
+              zh_Hans: 以色列
+            value: IL
+          - icon: ''
+            label:
+              en_US: Italy
+              ja_JP: Italy
+              pt_BR: Itália
+              zh_Hans: 意大利
+            value: IT
+          - icon: ''
+            label:
+              en_US: Jamaica
+              ja_JP: Jamaica
+              pt_BR: Jamaica
+              zh_Hans: 牙买加
+            value: JM
+          - icon: ''
+            label:
+              en_US: Japan
+              ja_JP: Japan
+              pt_BR: Japão
+              zh_Hans: 日本
+            value: JP
+          - icon: ''
+            label:
+              en_US: Jordan
+              ja_JP: Jordan
+              pt_BR: Jordânia
+              zh_Hans: 约旦
+            value: JO
+          - icon: ''
+            label:
+              en_US: Kazakhstan
+              ja_JP: Kazakhstan
+              pt_BR: Cazaquistão
+              zh_Hans: 哈萨克斯坦
+            value: KZ
+          - icon: ''
+            label:
+              en_US: Kenya
+              ja_JP: Kenya
+              pt_BR: Quênia
+              zh_Hans: 肯尼亚
+            value: KE
+          - icon: ''
+            label:
+              en_US: Kiribati
+              ja_JP: Kiribati
+              pt_BR: Kiribati
+              zh_Hans: 基里巴斯
+            value: KI
+          - icon: ''
+            label:
+              en_US: Korea, Democratic People's Republic of
+              ja_JP: Korea, Democratic People's Republic of
+              pt_BR: Coreia, República Democrática Popular da
+              zh_Hans: 朝鲜
+            value: KP
+          - icon: ''
+            label:
+              en_US: Korea, Republic of
+              ja_JP: Korea, Republic of
+              pt_BR: Coreia, República da
+              zh_Hans: 韩国
+            value: KR
+          - icon: ''
+            label:
+              en_US: Kuwait
+              ja_JP: Kuwait
+              pt_BR: Kuwait
+              zh_Hans: 科威特
+            value: KW
+          - icon: ''
+            label:
+              en_US: Kyrgyzstan
+              ja_JP: Kyrgyzstan
+              pt_BR: Quirguistão
+              zh_Hans: 吉尔吉斯斯坦
+            value: KG
+          - icon: ''
+            label:
+              en_US: Lao People's Democratic Republic
+              ja_JP: Lao People's Democratic Republic
+              pt_BR: República Democrática Popular do Laos
+              zh_Hans: 老挝
+            value: LA
+          - icon: ''
+            label:
+              en_US: Latvia
+              ja_JP: Latvia
+              pt_BR: Letônia
+              zh_Hans: 拉脱维亚
+            value: LV
+          - icon: ''
+            label:
+              en_US: Lebanon
+              ja_JP: Lebanon
+              pt_BR: Líbano
+              zh_Hans: 黎巴嫩
+            value: LB
+          - icon: ''
+            label:
+              en_US: Lesotho
+              ja_JP: Lesotho
+              pt_BR: Lesoto
+              zh_Hans: 莱索托
+            value: LS
+          - icon: ''
+            label:
+              en_US: Liberia
+              ja_JP: Liberia
+              pt_BR: Libéria
+              zh_Hans: 利比里亚
+            value: LR
+          - icon: ''
+            label:
+              en_US: Libyan Arab Jamahiriya
+              ja_JP: Libyan Arab Jamahiriya
+              pt_BR: Líbia
+              zh_Hans: 利比亚
+            value: LY
+          - icon: ''
+            label:
+              en_US: Liechtenstein
+              ja_JP: Liechtenstein
+              pt_BR: Liechtenstein
+              zh_Hans: 列支敦士登
+            value: LI
+          - icon: ''
+            label:
+              en_US: Lithuania
+              ja_JP: Lithuania
+              pt_BR: Lituânia
+              zh_Hans: 立陶宛
+            value: LT
+          - icon: ''
+            label:
+              en_US: Luxembourg
+              ja_JP: Luxembourg
+              pt_BR: Luxemburgo
+              zh_Hans: 卢森堡
+            value: LU
+          - icon: ''
+            label:
+              en_US: Macao
+              ja_JP: Macao
+              pt_BR: Macau
+              zh_Hans: 澳门
+            value: MO
+          - icon: ''
+            label:
+              en_US: Macedonia, the Former Yugosalv Republic of
+              ja_JP: Macedonia, the Former Yugosalv Republic of
+              pt_BR: Macedônia, Ex-República Iugoslava da
+              zh_Hans: 前南斯拉夫马其顿共和国
+            value: MK
+          - icon: ''
+            label:
+              en_US: Madagascar
+              ja_JP: Madagascar
+              pt_BR: Madagascar
+              zh_Hans: 马达加斯加
+            value: MG
+          - icon: ''
+            label:
+              en_US: Malawi
+              ja_JP: Malawi
+              pt_BR: Malaui
+              zh_Hans: 马拉维
+            value: MW
+          - icon: ''
+            label:
+              en_US: Malaysia
+              ja_JP: Malaysia
+              pt_BR: Malásia
+              zh_Hans: 马来西亚
+            value: MY
+          - icon: ''
+            label:
+              en_US: Maldives
+              ja_JP: Maldives
+              pt_BR: Maldivas
+              zh_Hans: 马尔代夫
+            value: MV
+          - icon: ''
+            label:
+              en_US: Mali
+              ja_JP: Mali
+              pt_BR: Mali
+              zh_Hans: 马里
+            value: ML
+          - icon: ''
+            label:
+              en_US: Malta
+              ja_JP: Malta
+              pt_BR: Malta
+              zh_Hans: 马耳他
+            value: MT
+          - icon: ''
+            label:
+              en_US: Marshall Islands
+              ja_JP: Marshall Islands
+              pt_BR: Ilhas Marshall
+              zh_Hans: 马绍尔群岛
+            value: MH
+          - icon: ''
+            label:
+              en_US: Martinique
+              ja_JP: Martinique
+              pt_BR: Martinica
+              zh_Hans: 马提尼克
+            value: MQ
+          - icon: ''
+            label:
+              en_US: Mauritania
+              ja_JP: Mauritania
+              pt_BR: Mauritânia
+              zh_Hans: 毛里塔尼亚
+            value: MR
+          - icon: ''
+            label:
+              en_US: Mauritius
+              ja_JP: Mauritius
+              pt_BR: Maurício
+              zh_Hans: 毛里求斯
+            value: MU
+          - icon: ''
+            label:
+              en_US: Mayotte
+              ja_JP: Mayotte
+              pt_BR: Mayotte
+              zh_Hans: 马约特
+            value: YT
+          - icon: ''
+            label:
+              en_US: Mexico
+              ja_JP: Mexico
+              pt_BR: México
+              zh_Hans: 墨西哥
+            value: MX
+          - icon: ''
+            label:
+              en_US: Micronesia, Federated States of
+              ja_JP: Micronesia, Federated States of
+              pt_BR: Micronésia, Estados Federados da
+              zh_Hans: 密克罗尼西亚联邦
+            value: FM
+          - icon: ''
+            label:
+              en_US: Moldova, Republic of
+              ja_JP: Moldova, Republic of
+              pt_BR: Moldávia, República da
+              zh_Hans: 摩尔多瓦共和国
+            value: MD
+          - icon: ''
+            label:
+              en_US: Monaco
+              ja_JP: Monaco
+              pt_BR: Mônaco
+              zh_Hans: 摩纳哥
+            value: MC
+          - icon: ''
+            label:
+              en_US: Mongolia
+              ja_JP: Mongolia
+              pt_BR: Mongólia
+              zh_Hans: 蒙古
+            value: MN
+          - icon: ''
+            label:
+              en_US: Montserrat
+              ja_JP: Montserrat
+              pt_BR: Montserrat
+              zh_Hans: 蒙特塞拉特
+            value: MS
+          - icon: ''
+            label:
+              en_US: Morocco
+              ja_JP: Morocco
+              pt_BR: Marrocos
+              zh_Hans: 摩洛哥
+            value: MA
+          - icon: ''
+            label:
+              en_US: Mozambique
+              ja_JP: Mozambique
+              pt_BR: Moçambique
+              zh_Hans: 莫桑比克
+            value: MZ
+          - icon: ''
+            label:
+              en_US: Myanmar
+              ja_JP: Myanmar
+              pt_BR: Mianmar
+              zh_Hans: 缅甸
+            value: MM
+          - icon: ''
+            label:
+              en_US: Namibia
+              ja_JP: Namibia
+              pt_BR: Namíbia
+              zh_Hans: 纳米比亚
+            value: NA
+          - icon: ''
+            label:
+              en_US: Nauru
+              ja_JP: Nauru
+              pt_BR: Nauru
+              zh_Hans: 瑙鲁
+            value: NR
+          - icon: ''
+            label:
+              en_US: Nepal
+              ja_JP: Nepal
+              pt_BR: Nepal
+              zh_Hans: 尼泊尔
+            value: NP
+          - icon: ''
+            label:
+              en_US: Netherlands
+              ja_JP: Netherlands
+              pt_BR: Países Baixos
+              zh_Hans: 荷兰
+            value: NL
+          - icon: ''
+            label:
+              en_US: Netherlands Antilles
+              ja_JP: Netherlands Antilles
+              pt_BR: Antilhas Holandesas
+              zh_Hans: 荷属安的列斯
+            value: AN
+          - icon: ''
+            label:
+              en_US: New Caledonia
+              ja_JP: New Caledonia
+              pt_BR: Nova Caledônia
+              zh_Hans: 新喀里多尼亚
+            value: NC
+          - icon: ''
+            label:
+              en_US: New Zealand
+              ja_JP: New Zealand
+              pt_BR: Nova Zelândia
+              zh_Hans: 新西兰
+            value: NZ
+          - icon: ''
+            label:
+              en_US: Nicaragua
+              ja_JP: Nicaragua
+              pt_BR: Nicarágua
+              zh_Hans: 尼加拉瓜
+            value: NI
+          - icon: ''
+            label:
+              en_US: Niger
+              ja_JP: Niger
+              pt_BR: Níger
+              zh_Hans: 尼日尔
+            value: NE
+          - icon: ''
+            label:
+              en_US: Nigeria
+              ja_JP: Nigeria
+              pt_BR: Nigéria
+              zh_Hans: 尼日利亚
+            value: NG
+          - icon: ''
+            label:
+              en_US: Niue
+              ja_JP: Niue
+              pt_BR: Niue
+              zh_Hans: 纽埃
+            value: NU
+          - icon: ''
+            label:
+              en_US: Norfolk Island
+              ja_JP: Norfolk Island
+              pt_BR: Ilha Norfolk
+              zh_Hans: 诺福克岛
+            value: NF
+          - icon: ''
+            label:
+              en_US: Northern Mariana Islands
+              ja_JP: Northern Mariana Islands
+              pt_BR: Ilhas Marianas do Norte
+              zh_Hans: 北马里亚纳群岛
+            value: MP
+          - icon: ''
+            label:
+              en_US: Norway
+              ja_JP: Norway
+              pt_BR: Noruega
+              zh_Hans: 挪威
+            value: 'NO'
+          - icon: ''
+            label:
+              en_US: Oman
+              ja_JP: Oman
+              pt_BR: Omã
+              zh_Hans: 阿曼
+            value: OM
+          - icon: ''
+            label:
+              en_US: Pakistan
+              ja_JP: Pakistan
+              pt_BR: Paquistão
+              zh_Hans: 巴基斯坦
+            value: PK
+          - icon: ''
+            label:
+              en_US: Palau
+              ja_JP: Palau
+              pt_BR: Palau
+              zh_Hans: 帕劳
+            value: PW
+          - icon: ''
+            label:
+              en_US: Palestinian Territory, Occupied
+              ja_JP: Palestinian Territory, Occupied
+              pt_BR: Palestina, Território Ocupado
+              zh_Hans: 巴勒斯坦领土
+            value: PS
+          - icon: ''
+            label:
+              en_US: Panama
+              ja_JP: Panama
+              pt_BR: Panamá
+              zh_Hans: 巴拿马
+            value: PA
+          - icon: ''
+            label:
+              en_US: Papua New Guinea
+              ja_JP: Papua New Guinea
+              pt_BR: Papua Nova Guiné
+              zh_Hans: 巴布亚新几内亚
+            value: PG
+          - icon: ''
+            label:
+              en_US: Paraguay
+              ja_JP: Paraguay
+              pt_BR: Paraguai
+              zh_Hans: 巴拉圭
+            value: PY
+          - icon: ''
+            label:
+              en_US: Peru
+              ja_JP: Peru
+              pt_BR: Peru
+              zh_Hans: 秘鲁
+            value: PE
+          - icon: ''
+            label:
+              en_US: Philippines
+              ja_JP: Philippines
+              pt_BR: Filipinas
+              zh_Hans: 菲律宾
+            value: PH
+          - icon: ''
+            label:
+              en_US: Pitcairn
+              ja_JP: Pitcairn
+              pt_BR: Pitcairn
+              zh_Hans: 皮特凯恩岛
+            value: PN
+          - icon: ''
+            label:
+              en_US: Poland
+              ja_JP: Poland
+              pt_BR: Polônia
+              zh_Hans: 波兰
+            value: PL
+          - icon: ''
+            label:
+              en_US: Portugal
+              ja_JP: Portugal
+              pt_BR: Portugal
+              zh_Hans: 葡萄牙
+            value: PT
+          - icon: ''
+            label:
+              en_US: Puerto Rico
+              ja_JP: Puerto Rico
+              pt_BR: Porto Rico
+              zh_Hans: 波多黎各
+            value: PR
+          - icon: ''
+            label:
+              en_US: Qatar
+              ja_JP: Qatar
+              pt_BR: Catar
+              zh_Hans: 卡塔尔
+            value: QA
+          - icon: ''
+            label:
+              en_US: Reunion
+              ja_JP: Reunion
+              pt_BR: Reunião
+              zh_Hans: 留尼旺
+            value: RE
+          - icon: ''
+            label:
+              en_US: Romania
+              ja_JP: Romania
+              pt_BR: Romênia
+              zh_Hans: 罗马尼亚
+            value: RO
+          - icon: ''
+            label:
+              en_US: Russian Federation
+              ja_JP: Russian Federation
+              pt_BR: Rússia
+              zh_Hans: 俄罗斯联邦
+            value: RU
+          - icon: ''
+            label:
+              en_US: Rwanda
+              ja_JP: Rwanda
+              pt_BR: Ruanda
+              zh_Hans: 卢旺达
+            value: RW
+          - icon: ''
+            label:
+              en_US: Saint Helena
+              ja_JP: Saint Helena
+              pt_BR: Santa Helena
+              zh_Hans: 圣赫勒拿
+            value: SH
+          - icon: ''
+            label:
+              en_US: Saint Kitts and Nevis
+              ja_JP: Saint Kitts and Nevis
+              pt_BR: São Cristóvão e Nevis
+              zh_Hans: 圣基茨和尼维斯
+            value: KN
+          - icon: ''
+            label:
+              en_US: Saint Lucia
+              ja_JP: Saint Lucia
+              pt_BR: Santa Lúcia
+              zh_Hans: 圣卢西亚
+            value: LC
+          - icon: ''
+            label:
+              en_US: Saint Pierre and Miquelon
+              ja_JP: Saint Pierre and Miquelon
+              pt_BR: São Pedro e Miquelon
+              zh_Hans: 圣皮埃尔和密克隆
+            value: PM
+          - icon: ''
+            label:
+              en_US: Saint Vincent and the Grenadines
+              ja_JP: Saint Vincent and the Grenadines
+              pt_BR: São Vicente e Granadinas
+              zh_Hans: 圣文森特和格林纳丁斯
+            value: VC
+          - icon: ''
+            label:
+              en_US: Samoa
+              ja_JP: Samoa
+              pt_BR: Samoa
+              zh_Hans: 萨摩亚
+            value: WS
+          - icon: ''
+            label:
+              en_US: San Marino
+              ja_JP: San Marino
+              pt_BR: San Marino
+              zh_Hans: 圣马力诺
+            value: SM
+          - icon: ''
+            label:
+              en_US: Sao Tome and Principe
+              ja_JP: Sao Tome and Principe
+              pt_BR: São Tomé e Príncipe
+              zh_Hans: 圣多美和普林西比
+            value: ST
+          - icon: ''
+            label:
+              en_US: Saudi Arabia
+              ja_JP: Saudi Arabia
+              pt_BR: Arábia Saudita
+              zh_Hans: 沙特阿拉伯
+            value: SA
+          - icon: ''
+            label:
+              en_US: Senegal
+              ja_JP: Senegal
+              pt_BR: Senegal
+              zh_Hans: 塞内加尔
+            value: SN
+          - icon: ''
+            label:
+              en_US: Serbia and Montenegro
+              ja_JP: Serbia and Montenegro
+              pt_BR: Sérvia e Montenegro
+              zh_Hans: 塞尔维亚和黑山
+            value: RS
+          - icon: ''
+            label:
+              en_US: Seychelles
+              ja_JP: Seychelles
+              pt_BR: Seicheles
+              zh_Hans: 塞舌尔
+            value: SC
+          - icon: ''
+            label:
+              en_US: Sierra Leone
+              ja_JP: Sierra Leone
+              pt_BR: Serra Leoa
+              zh_Hans: 塞拉利昂
+            value: SL
+          - icon: ''
+            label:
+              en_US: Singapore
+              ja_JP: Singapore
+              pt_BR: Singapura
+              zh_Hans: 新加坡
+            value: SG
+          - icon: ''
+            label:
+              en_US: Slovakia
+              ja_JP: Slovakia
+              pt_BR: Eslováquia
+              zh_Hans: 斯洛伐克
+            value: SK
+          - icon: ''
+            label:
+              en_US: Slovenia
+              ja_JP: Slovenia
+              pt_BR: Eslovênia
+              zh_Hans: 斯洛文尼亚
+            value: SI
+          - icon: ''
+            label:
+              en_US: Solomon Islands
+              ja_JP: Solomon Islands
+              pt_BR: Ilhas Salomão
+              zh_Hans: 所罗门群岛
+            value: SB
+          - icon: ''
+            label:
+              en_US: Somalia
+              ja_JP: Somalia
+              pt_BR: Somália
+              zh_Hans: 索马里
+            value: SO
+          - icon: ''
+            label:
+              en_US: South Africa
+              ja_JP: South Africa
+              pt_BR: África do Sul
+              zh_Hans: 南非
+            value: ZA
+          - icon: ''
+            label:
+              en_US: South Georgia and the South Sandwich Islands
+              ja_JP: South Georgia and the South Sandwich Islands
+              pt_BR: Geórgia do Sul e Ilhas Sandwich do Sul
+              zh_Hans: 南乔治亚和南桑威奇群岛
+            value: GS
+          - icon: ''
+            label:
+              en_US: Spain
+              ja_JP: Spain
+              pt_BR: Espanha
+              zh_Hans: 西班牙
+            value: ES
+          - icon: ''
+            label:
+              en_US: Sri Lanka
+              ja_JP: Sri Lanka
+              pt_BR: Sri Lanka
+              zh_Hans: 斯里兰卡
+            value: LK
+          - icon: ''
+            label:
+              en_US: Sudan
+              ja_JP: Sudan
+              pt_BR: Sudão
+              zh_Hans: 苏丹
+            value: SD
+          - icon: ''
+            label:
+              en_US: Suriname
+              ja_JP: Suriname
+              pt_BR: Suriname
+              zh_Hans: 苏里南
+            value: SR
+          - icon: ''
+            label:
+              en_US: Svalbard and Jan Mayen
+              ja_JP: Svalbard and Jan Mayen
+              pt_BR: Svalbard e Jan Mayen
+              zh_Hans: 斯瓦尔巴特和扬马延岛
+            value: SJ
+          - icon: ''
+            label:
+              en_US: Swaziland
+              ja_JP: Swaziland
+              pt_BR: Essuatíni
+              zh_Hans: 斯威士兰
+            value: SZ
+          - icon: ''
+            label:
+              en_US: Sweden
+              ja_JP: Sweden
+              pt_BR: Suécia
+              zh_Hans: 瑞典
+            value: SE
+          - icon: ''
+            label:
+              en_US: Switzerland
+              ja_JP: Switzerland
+              pt_BR: Suíça
+              zh_Hans: 瑞士
+            value: CH
+          - icon: ''
+            label:
+              en_US: Syrian Arab Republic
+              ja_JP: Syrian Arab Republic
+              pt_BR: Síria
+              zh_Hans: 叙利亚
+            value: SY
+          - icon: ''
+            label:
+              en_US: Taiwan, Province of China
+              ja_JP: Taiwan, Province of China
+              pt_BR: Taiwan
+              zh_Hans: 台湾
+            value: TW
+          - icon: ''
+            label:
+              en_US: Tajikistan
+              ja_JP: Tajikistan
+              pt_BR: Tajiquistão
+              zh_Hans: 塔吉克斯坦
+            value: TJ
+          - icon: ''
+            label:
+              en_US: Tanzania, United Republic of
+              ja_JP: Tanzania, United Republic of
+              pt_BR: Tanzânia
+              zh_Hans: 坦桑尼亚联合共和国
+            value: TZ
+          - icon: ''
+            label:
+              en_US: Thailand
+              ja_JP: Thailand
+              pt_BR: Tailândia
+              zh_Hans: 泰国
+            value: TH
+          - icon: ''
+            label:
+              en_US: Timor-Leste
+              ja_JP: Timor-Leste
+              pt_BR: Timor-Leste
+              zh_Hans: 东帝汶
+            value: TL
+          - icon: ''
+            label:
+              en_US: Togo
+              ja_JP: Togo
+              pt_BR: Togo
+              zh_Hans: 多哥
+            value: TG
+          - icon: ''
+            label:
+              en_US: Tokelau
+              ja_JP: Tokelau
+              pt_BR: Toquelau
+              zh_Hans: 托克劳
+            value: TK
+          - icon: ''
+            label:
+              en_US: Tonga
+              ja_JP: Tonga
+              pt_BR: Tonga
+              zh_Hans: 汤加
+            value: TO
+          - icon: ''
+            label:
+              en_US: Trinidad and Tobago
+              ja_JP: Trinidad and Tobago
+              pt_BR: Trindade e Tobago
+              zh_Hans: 特立尼达和多巴哥
+            value: TT
+          - icon: ''
+            label:
+              en_US: Tunisia
+              ja_JP: Tunisia
+              pt_BR: Tunísia
+              zh_Hans: 突尼斯
+            value: TN
+          - icon: ''
+            label:
+              en_US: Turkey
+              ja_JP: Turkey
+              pt_BR: Turquia
+              zh_Hans: 土耳其
+            value: TR
+          - icon: ''
+            label:
+              en_US: Turkmenistan
+              ja_JP: Turkmenistan
+              pt_BR: Turcomenistão
+              zh_Hans: 土库曼斯坦
+            value: TM
+          - icon: ''
+            label:
+              en_US: Turks and Caicos Islands
+              ja_JP: Turks and Caicos Islands
+              pt_BR: Ilhas Turks e Caicos
+              zh_Hans: 特克斯和凯科斯群岛
+            value: TC
+          - icon: ''
+            label:
+              en_US: Tuvalu
+              ja_JP: Tuvalu
+              pt_BR: Tuvalu
+              zh_Hans: 图瓦卢
+            value: TV
+          - icon: ''
+            label:
+              en_US: Uganda
+              ja_JP: Uganda
+              pt_BR: Uganda
+              zh_Hans: 乌干达
+            value: UG
+          - icon: ''
+            label:
+              en_US: Ukraine
+              ja_JP: Ukraine
+              pt_BR: Ucrânia
+              zh_Hans: 乌克兰
+            value: UA
+          - icon: ''
+            label:
+              en_US: United Arab Emirates
+              ja_JP: United Arab Emirates
+              pt_BR: Emirados Árabes Unidos
+              zh_Hans: 阿联酋
+            value: AE
+          - icon: ''
+            label:
+              en_US: United Kingdom
+              ja_JP: United Kingdom
+              pt_BR: Reino Unido
+              zh_Hans: 英国
+            value: UK
+          - icon: ''
+            label:
+              en_US: United Kingdom
+              ja_JP: United Kingdom
+              pt_BR: Reino Unido
+              zh_Hans: 英国
+            value: GB
+          - icon: ''
+            label:
+              en_US: United States
+              ja_JP: United States
+              pt_BR: Estados Unidos
+              zh_Hans: 美国
+            value: US
+          - icon: ''
+            label:
+              en_US: United States Minor Outlying Islands
+              ja_JP: United States Minor Outlying Islands
+              pt_BR: Ilhas Menores Distantes dos Estados Unidos
+              zh_Hans: 美国本土外小岛屿
+            value: UM
+          - icon: ''
+            label:
+              en_US: Uruguay
+              ja_JP: Uruguay
+              pt_BR: Uruguai
+              zh_Hans: 乌拉圭
+            value: UY
+          - icon: ''
+            label:
+              en_US: Uzbekistan
+              ja_JP: Uzbekistan
+              pt_BR: Uzbequistão
+              zh_Hans: 乌兹别克斯坦
+            value: UZ
+          - icon: ''
+            label:
+              en_US: Vanuatu
+              ja_JP: Vanuatu
+              pt_BR: Vanuatu
+              zh_Hans: 瓦努阿图
+            value: VU
+          - icon: ''
+            label:
+              en_US: Venezuela
+              ja_JP: Venezuela
+              pt_BR: Venezuela
+              zh_Hans: 委内瑞拉
+            value: VE
+          - icon: ''
+            label:
+              en_US: Viet Nam
+              ja_JP: Viet Nam
+              pt_BR: Vietnã
+              zh_Hans: 越南
+            value: VN
+          - icon: ''
+            label:
+              en_US: Virgin Islands, British
+              ja_JP: Virgin Islands, British
+              pt_BR: Ilhas Virgens Britânicas
+              zh_Hans: 英属维尔京群岛
+            value: VG
+          - icon: ''
+            label:
+              en_US: Virgin Islands, U.S.
+              ja_JP: Virgin Islands, U.S.
+              pt_BR: Ilhas Virgens dos EUA
+              zh_Hans: 美属维尔京群岛
+            value: VI
+          - icon: ''
+            label:
+              en_US: Wallis and Futuna
+              ja_JP: Wallis and Futuna
+              pt_BR: Wallis e Futuna
+              zh_Hans: 瓦利斯和富图纳群岛
+            value: WF
+          - icon: ''
+            label:
+              en_US: Western Sahara
+              ja_JP: Western Sahara
+              pt_BR: Saara Ocidental
+              zh_Hans: 西撒哈拉
+            value: EH
+          - icon: ''
+            label:
+              en_US: Yemen
+              ja_JP: Yemen
+              pt_BR: Iémen
+              zh_Hans: 也门
+            value: YE
+          - icon: ''
+            label:
+              en_US: Zambia
+              ja_JP: Zambia
+              pt_BR: Zâmbia
+              zh_Hans: 赞比亚
+            value: ZM
+          - icon: ''
+            label:
+              en_US: Zimbabwe
+              ja_JP: Zimbabwe
+              pt_BR: Zimbábue
+              zh_Hans: 津巴布韦
+            value: ZW
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: en
+          form: form
+          human_description:
+            en_US: Defines the interface language of the search. Default is "en".
+            ja_JP: Defines the interface language of the search. Default is "en".
+            pt_BR: Defines the interface language of the search. Default is "en".
+            zh_Hans: 定义搜索的界面语言。默认为“en”。
+          label:
+            en_US: Language
+            ja_JP: Language
+            pt_BR: Language
+            zh_Hans: 语言
+          llm_description: ''
+          max: null
+          min: null
+          name: hl
+          options:
+          - icon: ''
+            label:
+              en_US: Afrikaans
+              ja_JP: Afrikaans
+              pt_BR: Afrikaans
+              zh_Hans: 南非语
+            value: af
+          - icon: ''
+            label:
+              en_US: Akan
+              ja_JP: Akan
+              pt_BR: Akan
+              zh_Hans: 阿坎语
+            value: ak
+          - icon: ''
+            label:
+              en_US: Albanian
+              ja_JP: Albanian
+              pt_BR: Albanian
+              zh_Hans: 阿尔巴尼亚语
+            value: sq
+          - icon: ''
+            label:
+              en_US: Samoa
+              ja_JP: Samoa
+              pt_BR: Samoa
+              zh_Hans: 萨摩亚语
+            value: ws
+          - icon: ''
+            label:
+              en_US: Amharic
+              ja_JP: Amharic
+              pt_BR: Amharic
+              zh_Hans: 阿姆哈拉语
+            value: am
+          - icon: ''
+            label:
+              en_US: Arabic
+              ja_JP: Arabic
+              pt_BR: Arabic
+              zh_Hans: 阿拉伯语
+            value: ar
+          - icon: ''
+            label:
+              en_US: Armenian
+              ja_JP: Armenian
+              pt_BR: Armenian
+              zh_Hans: 亚美尼亚语
+            value: hy
+          - icon: ''
+            label:
+              en_US: Azerbaijani
+              ja_JP: Azerbaijani
+              pt_BR: Azerbaijani
+              zh_Hans: 阿塞拜疆语
+            value: az
+          - icon: ''
+            label:
+              en_US: Basque
+              ja_JP: Basque
+              pt_BR: Basque
+              zh_Hans: 巴斯克语
+            value: eu
+          - icon: ''
+            label:
+              en_US: Belarusian
+              ja_JP: Belarusian
+              pt_BR: Belarusian
+              zh_Hans: 白俄罗斯语
+            value: be
+          - icon: ''
+            label:
+              en_US: Bemba
+              ja_JP: Bemba
+              pt_BR: Bemba
+              zh_Hans: 班巴语
+            value: bem
+          - icon: ''
+            label:
+              en_US: Bengali
+              ja_JP: Bengali
+              pt_BR: Bengali
+              zh_Hans: 孟加拉语
+            value: bn
+          - icon: ''
+            label:
+              en_US: Bihari
+              ja_JP: Bihari
+              pt_BR: Bihari
+              zh_Hans: 比哈尔语
+            value: bh
+          - icon: ''
+            label:
+              en_US: Bork, bork, bork!
+              ja_JP: Bork, bork, bork!
+              pt_BR: Bork, bork, bork!
+              zh_Hans: 博克语
+            value: xx-bork
+          - icon: ''
+            label:
+              en_US: Bosnian
+              ja_JP: Bosnian
+              pt_BR: Bosnian
+              zh_Hans: 波斯尼亚语
+            value: bs
+          - icon: ''
+            label:
+              en_US: Breton
+              ja_JP: Breton
+              pt_BR: Breton
+              zh_Hans: 布列塔尼语
+            value: br
+          - icon: ''
+            label:
+              en_US: Bulgarian
+              ja_JP: Bulgarian
+              pt_BR: Bulgarian
+              zh_Hans: 保加利亚语
+            value: bg
+          - icon: ''
+            label:
+              en_US: Bhutanese
+              ja_JP: Bhutanese
+              pt_BR: Bhutanese
+              zh_Hans: 不丹语
+            value: bt
+          - icon: ''
+            label:
+              en_US: Cambodian
+              ja_JP: Cambodian
+              pt_BR: Cambodian
+              zh_Hans: 高棉语
+            value: km
+          - icon: ''
+            label:
+              en_US: Catalan
+              ja_JP: Catalan
+              pt_BR: Catalan
+              zh_Hans: 加泰罗尼亚语
+            value: ca
+          - icon: ''
+            label:
+              en_US: Cherokee
+              ja_JP: Cherokee
+              pt_BR: Cherokee
+              zh_Hans: 切罗基语
+            value: chr
+          - icon: ''
+            label:
+              en_US: Chichewa
+              ja_JP: Chichewa
+              pt_BR: Chichewa
+              zh_Hans: 齐切瓦语
+            value: ny
+          - icon: ''
+            label:
+              en_US: Chinese (Simplified)
+              ja_JP: Chinese (Simplified)
+              pt_BR: Chinese (Simplified)
+              zh_Hans: 中文（简体）
+            value: zh-cn
+          - icon: ''
+            label:
+              en_US: Chinese (Traditional)
+              ja_JP: Chinese (Traditional)
+              pt_BR: Chinese (Traditional)
+              zh_Hans: 中文（繁体）
+            value: zh-tw
+          - icon: ''
+            label:
+              en_US: Corsican
+              ja_JP: Corsican
+              pt_BR: Corsican
+              zh_Hans: 科西嘉语
+            value: co
+          - icon: ''
+            label:
+              en_US: Croatian
+              ja_JP: Croatian
+              pt_BR: Croatian
+              zh_Hans: 克罗地亚语
+            value: hr
+          - icon: ''
+            label:
+              en_US: Czech
+              ja_JP: Czech
+              pt_BR: Czech
+              zh_Hans: 捷克语
+            value: cs
+          - icon: ''
+            label:
+              en_US: Danish
+              ja_JP: Danish
+              pt_BR: Danish
+              zh_Hans: 丹麦语
+            value: da
+          - icon: ''
+            label:
+              en_US: Dutch
+              ja_JP: Dutch
+              pt_BR: Dutch
+              zh_Hans: 荷兰语
+            value: nl
+          - icon: ''
+            label:
+              en_US: Elmer Fudd
+              ja_JP: Elmer Fudd
+              pt_BR: Elmer Fudd
+              zh_Hans: 艾尔默福德语
+            value: xx-elmer
+          - icon: ''
+            label:
+              en_US: English
+              ja_JP: English
+              pt_BR: English
+              zh_Hans: 英语
+            value: en
+          - icon: ''
+            label:
+              en_US: Esperanto
+              ja_JP: Esperanto
+              pt_BR: Esperanto
+              zh_Hans: 世界语
+            value: eo
+          - icon: ''
+            label:
+              en_US: Estonian
+              ja_JP: Estonian
+              pt_BR: Estonian
+              zh_Hans: 爱沙尼亚语
+            value: et
+          - icon: ''
+            label:
+              en_US: Ewe
+              ja_JP: Ewe
+              pt_BR: Ewe
+              zh_Hans: 埃维语
+            value: ee
+          - icon: ''
+            label:
+              en_US: Faroese
+              ja_JP: Faroese
+              pt_BR: Faroese
+              zh_Hans: 法罗语
+            value: fo
+          - icon: ''
+            label:
+              en_US: Filipino
+              ja_JP: Filipino
+              pt_BR: Filipino
+              zh_Hans: 菲律宾语
+            value: tl
+          - icon: ''
+            label:
+              en_US: Finnish
+              ja_JP: Finnish
+              pt_BR: Finnish
+              zh_Hans: 芬兰语
+            value: fi
+          - icon: ''
+            label:
+              en_US: French
+              ja_JP: French
+              pt_BR: French
+              zh_Hans: 法语
+            value: fr
+          - icon: ''
+            label:
+              en_US: Frisian
+              ja_JP: Frisian
+              pt_BR: Frisian
+              zh_Hans: 弗里西亚语
+            value: fy
+          - icon: ''
+            label:
+              en_US: Ga
+              ja_JP: Ga
+              pt_BR: Ga
+              zh_Hans: 加语
+            value: gaa
+          - icon: ''
+            label:
+              en_US: Galician
+              ja_JP: Galician
+              pt_BR: Galician
+              zh_Hans: 加利西亚语
+            value: gl
+          - icon: ''
+            label:
+              en_US: Georgian
+              ja_JP: Georgian
+              pt_BR: Georgian
+              zh_Hans: 格鲁吉亚语
+            value: ka
+          - icon: ''
+            label:
+              en_US: German
+              ja_JP: German
+              pt_BR: German
+              zh_Hans: 德语
+            value: de
+          - icon: ''
+            label:
+              en_US: Greek
+              ja_JP: Greek
+              pt_BR: Greek
+              zh_Hans: 希腊语
+            value: el
+          - icon: ''
+            label:
+              en_US: Greenlandic
+              ja_JP: Greenlandic
+              pt_BR: Greenlandic
+              zh_Hans: 格陵兰语
+            value: kl
+          - icon: ''
+            label:
+              en_US: Guarani
+              ja_JP: Guarani
+              pt_BR: Guarani
+              zh_Hans: 瓜拉尼语
+            value: gn
+          - icon: ''
+            label:
+              en_US: Gujarati
+              ja_JP: Gujarati
+              pt_BR: Gujarati
+              zh_Hans: 古吉拉特语
+            value: gu
+          - icon: ''
+            label:
+              en_US: Hacker
+              ja_JP: Hacker
+              pt_BR: Hacker
+              zh_Hans: 黑客语
+            value: xx-hacker
+          - icon: ''
+            label:
+              en_US: Haitian Creole
+              ja_JP: Haitian Creole
+              pt_BR: Haitian Creole
+              zh_Hans: 海地克里奥尔语
+            value: ht
+          - icon: ''
+            label:
+              en_US: Hausa
+              ja_JP: Hausa
+              pt_BR: Hausa
+              zh_Hans: 豪萨语
+            value: ha
+          - icon: ''
+            label:
+              en_US: Hawaiian
+              ja_JP: Hawaiian
+              pt_BR: Hawaiian
+              zh_Hans: 夏威夷语
+            value: haw
+          - icon: ''
+            label:
+              en_US: Hebrew
+              ja_JP: Hebrew
+              pt_BR: Hebrew
+              zh_Hans: 希伯来语
+            value: iw
+          - icon: ''
+            label:
+              en_US: Hindi
+              ja_JP: Hindi
+              pt_BR: Hindi
+              zh_Hans: 印地语
+            value: hi
+          - icon: ''
+            label:
+              en_US: Hungarian
+              ja_JP: Hungarian
+              pt_BR: Hungarian
+              zh_Hans: 匈牙利语
+            value: hu
+          - icon: ''
+            label:
+              en_US: Icelandic
+              ja_JP: Icelandic
+              pt_BR: Icelandic
+              zh_Hans: 冰岛语
+            value: is
+          - icon: ''
+            label:
+              en_US: Igbo
+              ja_JP: Igbo
+              pt_BR: Igbo
+              zh_Hans: 伊博语
+            value: ig
+          - icon: ''
+            label:
+              en_US: Indonesian
+              ja_JP: Indonesian
+              pt_BR: Indonesian
+              zh_Hans: 印尼语
+            value: id
+          - icon: ''
+            label:
+              en_US: Interlingua
+              ja_JP: Interlingua
+              pt_BR: Interlingua
+              zh_Hans: 国际语
+            value: ia
+          - icon: ''
+            label:
+              en_US: Irish
+              ja_JP: Irish
+              pt_BR: Irish
+              zh_Hans: 爱尔兰语
+            value: ga
+          - icon: ''
+            label:
+              en_US: Italian
+              ja_JP: Italian
+              pt_BR: Italian
+              zh_Hans: 意大利语
+            value: it
+          - icon: ''
+            label:
+              en_US: Japanese
+              ja_JP: Japanese
+              pt_BR: Japanese
+              zh_Hans: 日语
+            value: ja
+          - icon: ''
+            label:
+              en_US: Javanese
+              ja_JP: Javanese
+              pt_BR: Javanese
+              zh_Hans: 爪哇语
+            value: jw
+          - icon: ''
+            label:
+              en_US: Kannada
+              ja_JP: Kannada
+              pt_BR: Kannada
+              zh_Hans: 卡纳达语
+            value: kn
+          - icon: ''
+            label:
+              en_US: Kazakh
+              ja_JP: Kazakh
+              pt_BR: Kazakh
+              zh_Hans: 哈萨克语
+            value: kk
+          - icon: ''
+            label:
+              en_US: Kinyarwanda
+              ja_JP: Kinyarwanda
+              pt_BR: Kinyarwanda
+              zh_Hans: 基尼亚卢旺达语
+            value: rw
+          - icon: ''
+            label:
+              en_US: Kirundi
+              ja_JP: Kirundi
+              pt_BR: Kirundi
+              zh_Hans: 基隆迪语
+            value: rn
+          - icon: ''
+            label:
+              en_US: Klingon
+              ja_JP: Klingon
+              pt_BR: Klingon
+              zh_Hans: 克林贡语
+            value: xx-klingon
+          - icon: ''
+            label:
+              en_US: Kongo
+              ja_JP: Kongo
+              pt_BR: Kongo
+              zh_Hans: 刚果语
+            value: kg
+          - icon: ''
+            label:
+              en_US: Korean
+              ja_JP: Korean
+              pt_BR: Korean
+              zh_Hans: 韩语
+            value: ko
+          - icon: ''
+            label:
+              en_US: Krio (Sierra Leone)
+              ja_JP: Krio (Sierra Leone)
+              pt_BR: Krio (Sierra Leone)
+              zh_Hans: 塞拉利昂克里奥尔语
+            value: kri
+          - icon: ''
+            label:
+              en_US: Kurdish
+              ja_JP: Kurdish
+              pt_BR: Kurdish
+              zh_Hans: 库尔德语
+            value: ku
+          - icon: ''
+            label:
+              en_US: Kurdish (Soranî)
+              ja_JP: Kurdish (Soranî)
+              pt_BR: Kurdish (Soranî)
+              zh_Hans: 库尔德语（索拉尼）
+            value: ckb
+          - icon: ''
+            label:
+              en_US: Kyrgyz
+              ja_JP: Kyrgyz
+              pt_BR: Kyrgyz
+              zh_Hans: 吉尔吉斯语
+            value: ky
+          - icon: ''
+            label:
+              en_US: Laothian
+              ja_JP: Laothian
+              pt_BR: Laothian
+              zh_Hans: 老挝语
+            value: lo
+          - icon: ''
+            label:
+              en_US: Latin
+              ja_JP: Latin
+              pt_BR: Latin
+              zh_Hans: 拉丁语
+            value: la
+          - icon: ''
+            label:
+              en_US: Latvian
+              ja_JP: Latvian
+              pt_BR: Latvian
+              zh_Hans: 拉脱维亚语
+            value: lv
+          - icon: ''
+            label:
+              en_US: Lingala
+              ja_JP: Lingala
+              pt_BR: Lingala
+              zh_Hans: 林加拉语
+            value: ln
+          - icon: ''
+            label:
+              en_US: Lithuanian
+              ja_JP: Lithuanian
+              pt_BR: Lithuanian
+              zh_Hans: 立陶宛语
+            value: lt
+          - icon: ''
+            label:
+              en_US: Lozi
+              ja_JP: Lozi
+              pt_BR: Lozi
+              zh_Hans: 洛齐语
+            value: loz
+          - icon: ''
+            label:
+              en_US: Luganda
+              ja_JP: Luganda
+              pt_BR: Luganda
+              zh_Hans: 卢干达语
+            value: lg
+          - icon: ''
+            label:
+              en_US: Luo
+              ja_JP: Luo
+              pt_BR: Luo
+              zh_Hans: 卢奥语
+            value: ach
+          - icon: ''
+            label:
+              en_US: Macedonian
+              ja_JP: Macedonian
+              pt_BR: Macedonian
+              zh_Hans: 马其顿语
+            value: mk
+          - icon: ''
+            label:
+              en_US: Malagasy
+              ja_JP: Malagasy
+              pt_BR: Malagasy
+              zh_Hans: 马尔加什语
+            value: mg
+          - icon: ''
+            label:
+              en_US: Malay
+              ja_JP: Malay
+              pt_BR: Malay
+              zh_Hans: 马来语
+            value: my
+          - icon: ''
+            label:
+              en_US: Malayalam
+              ja_JP: Malayalam
+              pt_BR: Malayalam
+              zh_Hans: 马拉雅拉姆语
+            value: ml
+          - icon: ''
+            label:
+              en_US: Maltese
+              ja_JP: Maltese
+              pt_BR: Maltese
+              zh_Hans: 马耳他语
+            value: mt
+          - icon: ''
+            label:
+              en_US: Maldives
+              ja_JP: Maldives
+              pt_BR: Maldives
+              zh_Hans: 马尔代夫语
+            value: mv
+          - icon: ''
+            label:
+              en_US: Maori
+              ja_JP: Maori
+              pt_BR: Maori
+              zh_Hans: 毛利语
+            value: mi
+          - icon: ''
+            label:
+              en_US: Marathi
+              ja_JP: Marathi
+              pt_BR: Marathi
+              zh_Hans: 马拉地语
+            value: mr
+          - icon: ''
+            label:
+              en_US: Mauritian Creole
+              ja_JP: Mauritian Creole
+              pt_BR: Mauritian Creole
+              zh_Hans: 毛里求斯克里奥尔语
+            value: mfe
+          - icon: ''
+            label:
+              en_US: Moldavian
+              ja_JP: Moldavian
+              pt_BR: Moldavian
+              zh_Hans: 摩尔达维亚语
+            value: mo
+          - icon: ''
+            label:
+              en_US: Mongolian
+              ja_JP: Mongolian
+              pt_BR: Mongolian
+              zh_Hans: 蒙古语
+            value: mn
+          - icon: ''
+            label:
+              en_US: Montenegrin
+              ja_JP: Montenegrin
+              pt_BR: Montenegrin
+              zh_Hans: 黑山语
+            value: sr-me
+          - icon: ''
+            label:
+              en_US: Nepali
+              ja_JP: Nepali
+              pt_BR: Nepali
+              zh_Hans: 尼泊尔语
+            value: ne
+          - icon: ''
+            label:
+              en_US: Nigerian Pidgin
+              ja_JP: Nigerian Pidgin
+              pt_BR: Nigerian Pidgin
+              zh_Hans: 尼日利亚皮钦语
+            value: pcm
+          - icon: ''
+            label:
+              en_US: Northern Sotho
+              ja_JP: Northern Sotho
+              pt_BR: Northern Sotho
+              zh_Hans: 北索托语
+            value: nso
+          - icon: ''
+            label:
+              en_US: Norwegian
+              ja_JP: Norwegian
+              pt_BR: Norwegian
+              zh_Hans: 挪威语
+            value: 'no'
+          - icon: ''
+            label:
+              en_US: Norwegian (Nynorsk)
+              ja_JP: Norwegian (Nynorsk)
+              pt_BR: Norwegian (Nynorsk)
+              zh_Hans: 挪威语（尼诺斯克语）
+            value: nn
+          - icon: ''
+            label:
+              en_US: Occitan
+              ja_JP: Occitan
+              pt_BR: Occitan
+              zh_Hans: 奥克语
+            value: oc
+          - icon: ''
+            label:
+              en_US: Oriya
+              ja_JP: Oriya
+              pt_BR: Oriya
+              zh_Hans: 奥里亚语
+            value: or
+          - icon: ''
+            label:
+              en_US: Oromo
+              ja_JP: Oromo
+              pt_BR: Oromo
+              zh_Hans: 奥罗莫语
+            value: om
+          - icon: ''
+            label:
+              en_US: Pashto
+              ja_JP: Pashto
+              pt_BR: Pashto
+              zh_Hans: 普什图语
+            value: ps
+          - icon: ''
+            label:
+              en_US: Persian
+              ja_JP: Persian
+              pt_BR: Persian
+              zh_Hans: 波斯语
+            value: fa
+          - icon: ''
+            label:
+              en_US: Pirate
+              ja_JP: Pirate
+              pt_BR: Pirate
+              zh_Hans: 海盗语
+            value: xx-pirate
+          - icon: ''
+            label:
+              en_US: Polish
+              ja_JP: Polish
+              pt_BR: Polish
+              zh_Hans: 波兰语
+            value: pl
+          - icon: ''
+            label:
+              en_US: Portuguese
+              ja_JP: Portuguese
+              pt_BR: Portuguese
+              zh_Hans: 葡萄牙语
+            value: pt
+          - icon: ''
+            label:
+              en_US: Portuguese (Brazil)
+              ja_JP: Portuguese (Brazil)
+              pt_BR: Portuguese (Brazil)
+              zh_Hans: 葡萄牙语（巴西）
+            value: pt-br
+          - icon: ''
+            label:
+              en_US: Portuguese (Portugal)
+              ja_JP: Portuguese (Portugal)
+              pt_BR: Portuguese (Portugal)
+              zh_Hans: 葡萄牙语（葡萄牙）
+            value: pt-pt
+          - icon: ''
+            label:
+              en_US: Punjabi
+              ja_JP: Punjabi
+              pt_BR: Punjabi
+              zh_Hans: 旁遮普语
+            value: pa
+          - icon: ''
+            label:
+              en_US: Quechua
+              ja_JP: Quechua
+              pt_BR: Quechua
+              zh_Hans: 克丘亚语
+            value: qu
+          - icon: ''
+            label:
+              en_US: Romanian
+              ja_JP: Romanian
+              pt_BR: Romanian
+              zh_Hans: 罗马尼亚语
+            value: ro
+          - icon: ''
+            label:
+              en_US: Romansh
+              ja_JP: Romansh
+              pt_BR: Romansh
+              zh_Hans: 罗曼什语
+            value: rm
+          - icon: ''
+            label:
+              en_US: Runyakitara
+              ja_JP: Runyakitara
+              pt_BR: Runyakitara
+              zh_Hans: 卢尼亚基塔拉语
+            value: nyn
+          - icon: ''
+            label:
+              en_US: Russian
+              ja_JP: Russian
+              pt_BR: Russian
+              zh_Hans: 俄语
+            value: ru
+          - icon: ''
+            label:
+              en_US: Scots Gaelic
+              ja_JP: Scots Gaelic
+              pt_BR: Scots Gaelic
+              zh_Hans: 苏格兰盖尔语
+            value: gd
+          - icon: ''
+            label:
+              en_US: Serbian
+              ja_JP: Serbian
+              pt_BR: Serbian
+              zh_Hans: 塞尔维亚语
+            value: sr
+          - icon: ''
+            label:
+              en_US: Serbo-Croatian
+              ja_JP: Serbo-Croatian
+              pt_BR: Serbo-Croatian
+              zh_Hans: 塞尔维亚-克罗地亚语
+            value: sh
+          - icon: ''
+            label:
+              en_US: Sesotho
+              ja_JP: Sesotho
+              pt_BR: Sesotho
+              zh_Hans: 塞索托语
+            value: st
+          - icon: ''
+            label:
+              en_US: Setswana
+              ja_JP: Setswana
+              pt_BR: Setswana
+              zh_Hans: 塞茨瓦纳语
+            value: tn
+          - icon: ''
+            label:
+              en_US: Seychellois Creole
+              ja_JP: Seychellois Creole
+              pt_BR: Seychellois Creole
+              zh_Hans: 塞舌尔克里奥尔语
+            value: crs
+          - icon: ''
+            label:
+              en_US: Shona
+              ja_JP: Shona
+              pt_BR: Shona
+              zh_Hans: 绍纳语
+            value: sn
+          - icon: ''
+            label:
+              en_US: Sindhi
+              ja_JP: Sindhi
+              pt_BR: Sindhi
+              zh_Hans: 信德语
+            value: sd
+          - icon: ''
+            label:
+              en_US: Sinhalese
+              ja_JP: Sinhalese
+              pt_BR: Sinhalese
+              zh_Hans: 僧伽罗语
+            value: si
+          - icon: ''
+            label:
+              en_US: Slovak
+              ja_JP: Slovak
+              pt_BR: Slovak
+              zh_Hans: 斯洛伐克语
+            value: sk
+          - icon: ''
+            label:
+              en_US: Slovenian
+              ja_JP: Slovenian
+              pt_BR: Slovenian
+              zh_Hans: 斯洛文尼亚语
+            value: sl
+          - icon: ''
+            label:
+              en_US: Somali
+              ja_JP: Somali
+              pt_BR: Somali
+              zh_Hans: 索马里语
+            value: so
+          - icon: ''
+            label:
+              en_US: Spanish
+              ja_JP: Spanish
+              pt_BR: Spanish
+              zh_Hans: 西班牙语
+            value: es
+          - icon: ''
+            label:
+              en_US: Spanish (Latin American)
+              ja_JP: Spanish (Latin American)
+              pt_BR: Spanish (Latin American)
+              zh_Hans: 西班牙语（拉丁美洲）
+            value: es-419
+          - icon: ''
+            label:
+              en_US: Sundanese
+              ja_JP: Sundanese
+              pt_BR: Sundanese
+              zh_Hans: 巽他语
+            value: su
+          - icon: ''
+            label:
+              en_US: Swahili
+              ja_JP: Swahili
+              pt_BR: Swahili
+              zh_Hans: 斯瓦希里语
+            value: sw
+          - icon: ''
+            label:
+              en_US: Swedish
+              ja_JP: Swedish
+              pt_BR: Swedish
+              zh_Hans: 瑞典语
+            value: sv
+          - icon: ''
+            label:
+              en_US: Tajik
+              ja_JP: Tajik
+              pt_BR: Tajik
+              zh_Hans: 塔吉克语
+            value: tg
+          - icon: ''
+            label:
+              en_US: Tamil
+              ja_JP: Tamil
+              pt_BR: Tamil
+              zh_Hans: 泰米尔语
+            value: ta
+          - icon: ''
+            label:
+              en_US: Tatar
+              ja_JP: Tatar
+              pt_BR: Tatar
+              zh_Hans: 鞑靼语
+            value: tt
+          - icon: ''
+            label:
+              en_US: Telugu
+              ja_JP: Telugu
+              pt_BR: Telugu
+              zh_Hans: 泰卢固语
+            value: te
+          - icon: ''
+            label:
+              en_US: Thai
+              ja_JP: Thai
+              pt_BR: Thai
+              zh_Hans: 泰语
+            value: th
+          - icon: ''
+            label:
+              en_US: Tigrinya
+              ja_JP: Tigrinya
+              pt_BR: Tigrinya
+              zh_Hans: 提格利尼亚语
+            value: ti
+          - icon: ''
+            label:
+              en_US: Tonga
+              ja_JP: Tonga
+              pt_BR: Tonga
+              zh_Hans: 汤加语
+            value: to
+          - icon: ''
+            label:
+              en_US: Tshiluba
+              ja_JP: Tshiluba
+              pt_BR: Tshiluba
+              zh_Hans: 卢巴语
+            value: lua
+          - icon: ''
+            label:
+              en_US: Tumbuka
+              ja_JP: Tumbuka
+              pt_BR: Tumbuka
+              zh_Hans: 图布卡语
+            value: tum
+          - icon: ''
+            label:
+              en_US: Turkish
+              ja_JP: Turkish
+              pt_BR: Turkish
+              zh_Hans: 土耳其语
+            value: tr
+          - icon: ''
+            label:
+              en_US: Turkmen
+              ja_JP: Turkmen
+              pt_BR: Turkmen
+              zh_Hans: 土库曼语
+            value: tk
+          - icon: ''
+            label:
+              en_US: Twi
+              ja_JP: Twi
+              pt_BR: Twi
+              zh_Hans: 契维语
+            value: tw
+          - icon: ''
+            label:
+              en_US: Uighur
+              ja_JP: Uighur
+              pt_BR: Uighur
+              zh_Hans: 维吾尔语
+            value: ug
+          - icon: ''
+            label:
+              en_US: Ukrainian
+              ja_JP: Ukrainian
+              pt_BR: Ukrainian
+              zh_Hans: 乌克兰语
+            value: uk
+          - icon: ''
+            label:
+              en_US: Urdu
+              ja_JP: Urdu
+              pt_BR: Urdu
+              zh_Hans: 乌尔都语
+            value: ur
+          - icon: ''
+            label:
+              en_US: Uzbek
+              ja_JP: Uzbek
+              pt_BR: Uzbek
+              zh_Hans: 乌兹别克语
+            value: uz
+          - icon: ''
+            label:
+              en_US: Vanuatu
+              ja_JP: Vanuatu
+              pt_BR: Vanuatu
+              zh_Hans: 瓦努阿图语
+            value: vu
+          - icon: ''
+            label:
+              en_US: Vietnamese
+              ja_JP: Vietnamese
+              pt_BR: Vietnamese
+              zh_Hans: 越南语
+            value: vi
+          - icon: ''
+            label:
+              en_US: Welsh
+              ja_JP: Welsh
+              pt_BR: Welsh
+              zh_Hans: 威尔士语
+            value: cy
+          - icon: ''
+            label:
+              en_US: Wolof
+              ja_JP: Wolof
+              pt_BR: Wolof
+              zh_Hans: 沃洛夫语
+            value: wo
+          - icon: ''
+            label:
+              en_US: Xhosa
+              ja_JP: Xhosa
+              pt_BR: Xhosa
+              zh_Hans: 科萨语
+            value: xh
+          - icon: ''
+            label:
+              en_US: Yiddish
+              ja_JP: Yiddish
+              pt_BR: Yiddish
+              zh_Hans: 意第绪语
+            value: yi
+          - icon: ''
+            label:
+              en_US: Yoruba
+              ja_JP: Yoruba
+              pt_BR: Yoruba
+              zh_Hans: 约鲁巴语
+            value: yo
+          - icon: ''
+            label:
+              en_US: Zulu
+              ja_JP: Zulu
+              pt_BR: Zulu
+              zh_Hans: 祖鲁语
+            value: zu
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Defines the Google domain of the search. Default is "google.com".
+            ja_JP: Defines the Google domain of the search. Default is "google.com".
+            pt_BR: Defines the Google domain of the search. Default is "google.com".
+            zh_Hans: 定义搜索的 Google 域。默认为“google.com”。
+          label:
+            en_US: google_domain
+            ja_JP: google_domain
+            pt_BR: google_domain
+            zh_Hans: google_domain
+          llm_description: Defines Google domain in which you want to search.
+          max: null
+          min: null
+          name: google_domain
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Specifies the number of results to display per page. Default is
+              10. Max number - 100, min - 1.
+            ja_JP: Specifies the number of results to display per page. Default is
+              10. Max number - 100, min - 1.
+            pt_BR: Specifies the number of results to display per page. Default is
+              10. Max number - 100, min - 1.
+            zh_Hans: 指定每页显示的结果数。默认值为 10。最大数量 - 100，最小数量 - 1。
+          label:
+            en_US: num
+            ja_JP: num
+            pt_BR: num
+            zh_Hans: num
+          llm_description: Specifies the num of results to display per page.
+          max: null
+          min: null
+          name: num
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        params:
+          gl: ''
+          google_domain: ''
+          hl: ''
+          location: ''
+          num: ''
+          query: ''
+          result_type: ''
+        provider_id: langgenius/searchapi/searchapi
+        provider_name: langgenius/searchapi/searchapi
+        provider_type: builtin
+        selected: false
+        title: Google Search API
+        tool_configurations:
+          gl:
+            type: constant
+            value: US
+          hl:
+            type: constant
+            value: en
+          result_type:
+            type: constant
+            value: text
+        tool_description: 一种从 Google 搜索引擎检索答案框、知识图、片段和网页的工具。
+        tool_label: Google Search API
+        tool_name: google_search_api
+        tool_node_version: '2'
+        tool_parameters:
+          google_domain:
+            type: mixed
+            value: null
+          location:
+            type: mixed
+            value: null
+          num:
+            type: constant
+            value: null
+          query:
+            type: mixed
+            value: null
+        type: tool
+      height: 139
+      id: '1764247195076'
+      position:
+        x: 1546.2857142857147
+        y: 1374.857142857143
+      positionAbsolute:
+        x: 1546.2857142857147
+        y: 1374.857142857143
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1764245810620'
+          - result
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-V3.1
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 328f02de-183e-4eff-bbec-8b0d3814667b
+          role: system
+          text: 优化知识库检索出来的内容{{#context#}}，然后进行输出即可，注意为节省开支和硬件负担，如果有多条数据只需检索前八条，如果有需要再在第二轮问答中检索后面的数据
+        selected: false
+        title: LLM 8
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1764246366978'
+      position:
+        x: 2075.4285714285716
+        y: 1177.1428571428573
+      positionAbsolute:
+        x: 2075.4285714285716
+        y: 1177.1428571428573
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        output_type: string
+        selected: false
+        title: 变量聚合器
+        type: variable-aggregator
+        variables:
+        - - '1764245834994'
+          - text
+        - - '1764246366978'
+          - text
+      height: 133
+      id: '1764246430764'
+      position:
+        x: 2301.5714285714294
+        y: 1306.5714285714284
+      positionAbsolute:
+        x: 2301.5714285714294
+        y: 1306.5714285714284
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        answer: '{{#1764246430764.output#}}'
+        selected: false
+        title: 直接回复 10
+        type: answer
+        variables: []
+      height: 102
+      id: '1764246467820'
+      position:
+        x: 2603.5714285714294
+        y: 1306.5714285714284
+      positionAbsolute:
+        x: 2603.5714285714294
+        y: 1306.5714285714284
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-R1
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: ab8218eb-dfd5-43a7-bf73-d55c3da7090b
+          role: system
+          text: '根据{{#context#}}}总结面试过程中者的优点和缺点，只需要指出用户在面试过程中的优点或缺点作为输出
+
+
+            输出示例：
+
+            #注：以下仅为示范，实际请替换为用户的实际表现
+
+            优点：对 Java 核心知识点（垃圾回收、多态、单例模式等）掌握扎实，回答逻辑清晰且贴合面试考点，能准确区分易混淆概念（如接口与抽象类、String
+            与 StringBuilder），还能补充面试加分细节；项目描述简洁明了，突出技术栈与个人贡献，具备较好的技术表达能力。
+
+            缺点：对部分底层原理（如 synchronized 锁升级流程）的阐述稍显简略，缺乏结合实际项目场景的案例支撑；面对问题排查类提问（如 404
+            报错），思路虽正确但可进一步细化排查优先级。
+
+
+            要求：
+
+            只总结面试者面试过程中的优点和缺点，不要输出其它内容'
+        selected: false
+        title: LLM 9
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1768533638691'
+      position:
+        x: 4946.609710078822
+        y: 81.28527025048726
+      positionAbsolute:
+        x: 4946.609710078822
+        y: 81.28527025048726
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+          provider: langgenius/siliconflow/siliconflow
+        prompt_template:
+        - id: 9eb307d1-b279-4c0b-8005-ded1e17f984d
+          role: system
+          text: '总结面试者的优点和缺点，只需要指出用户在面试过程中的优点或缺点作为输出
+
+
+            输出示例：
+
+            #注：以下仅为示范，实际请替换成用户的实际表现
+
+            优点：对 Java 核心知识点（垃圾回收、多态、单例模式等）掌握扎实，回答逻辑清晰且贴合面试考点，能准确区分易混淆概念（如接口与抽象类、String
+            与 StringBuilder），还能补充面试加分细节；项目描述简洁明了，突出技术栈与个人贡献，具备较好的技术表达能力。
+
+            缺点：对部分底层原理（如 synchronized 锁升级流程）的阐述稍显简略，缺乏结合实际项目场景的案例支撑；面对问题排查类提问（如 404
+            报错），思路虽正确但可进一步细化排查优先级。
+
+
+            要求：
+
+            只总结面试者面试过程中的优点和缺点，不要输出其它内容'
+        selected: false
+        title: LLM 10
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1768533861307'
+      position:
+        x: 5142.619331350597
+        y: 337.068477428402
+      positionAbsolute:
+        x: 5142.619331350597
+        y: 337.068477428402
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+    viewport:
+      x: -1619.1208846664194
+      y: -88.3849177498522
+      zoom: 0.7000000000000008
+  rag_pipeline_variables: []

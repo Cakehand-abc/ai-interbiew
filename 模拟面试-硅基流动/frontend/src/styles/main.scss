@@ -1,0 +1,25 @@
+/* 视觉风格变量 */
+
+// 主色调
+$color-primary: #2563eb; // 品牌蓝
+$color-white: #ffffff;
+$color-light-gray: #f9fafb;
+
+// 状态色
+$color-status-pending: #8b5cf6; // 待面试
+$color-status-ongoing: #10b981; // 进行中
+$color-status-finished: #6b7280; // 已结束
+
+// 文字色
+$color-text-primary: #111827;
+$color-text-secondary: #4b5563;
+$color-text-placeholder: #9ca3af;
+
+// 边框和阴影
+$border-color: #e5e7eb; // 对应 a-200
+$shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+$shadow-hover: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+// 布局
+$border-radius-lg: 0.5rem; // 8px
+$border-radius-sm: 0.25rem; // 4px
